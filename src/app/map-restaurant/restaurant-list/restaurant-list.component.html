@@ -1,0 +1,10 @@
+<div class="list-group">
+  <h5 id="nb_restaurants">0 restaurant actuellement visible sur la carte</h5>
+  <a href="#" *ngFor="let restaurant of restaurants; let i = index" id="restaurant_{{i}}" class="list-group-item list-group-item-action flex-column align-items-start active">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{restaurant.restaurantName}}</h5>
+      <small>Note : {{ restaurant.averageRating }}/5</small>
+    </div>
+    <small>{{ restaurant.address }}</small>
+  </a>
+</div>

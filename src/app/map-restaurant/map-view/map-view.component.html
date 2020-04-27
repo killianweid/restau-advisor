@@ -1,0 +1,19 @@
+<agm-map style="text-shadow: 0px 0px 6.2px grey;" [latitude]="lat"
+         [longitude]="lng"
+         [zoom]="zoom"
+         (mapReady)="onMapReady($event)" >
+  <agm-marker [latitude]="lat" [longitude]="lng" [label]="{color:'blue',text:'Votre position'}" >
+  </agm-marker>
+  <agm-marker
+    *ngFor="let m of markers; let i = index"
+    [latitude]="m.lat"
+    [longitude]="m.lng"
+    [label]="m.label"
+  id="marker{{i}}">
+
+    <agm-info-window>
+      <strong>InfoWindow content</strong>
+    </agm-info-window>
+
+  </agm-marker>
+</agm-map>

@@ -1,0 +1,108 @@
+[
+  {
+    "restaurantName":"La Bonne Franquette",
+    "address":"10 rue Maurice Clavel, 34200 Sète",
+    "lat": 43.403268,
+    "long": 3.698528,
+    "ratings":[
+      {
+        "stars":4,
+        "comment":"Un excellent restaurant, j'y reviendrai ! Par contre il vaut mieux aimer la viande."
+      },
+      {
+        "stars":5,
+        "comment":"Tout simplement mon restaurant préféré !"
+      }
+    ],
+    "averageRating": null
+  },
+  {
+    "restaurantName":"Entre Terre et Mer",
+    "address":"2 Grande Rue Mario Roustan, 34200 Sète",
+    "lat":43.402415,
+    "long":3.696641,
+    "ratings":[
+      {
+        "stars":1,
+        "comment":"La cuisine est vraiment éclaté sol ! J'ai tout vomi en sortant du restaurant qui est très mal entretenu."
+      },
+      {
+        "stars":1,
+        "comment":"Quel cuisine catastrophique, je met 1 juste parce qu'on a eu du pain en plus !"
+      }
+    ],
+    "averageRating": null
+  },
+  {
+    "restaurantName":"Le Cadre Royal",
+    "address":"Quai Léopold Suquet, 34200 Sète",
+    "lat":43.402912,
+    "long":3.697661,
+    "ratings":[
+      {
+        "stars":5,
+        "comment":"On s'est régalé de ouf ! Merci à toute l'équipe du restaurant, c'était succulent."
+      },
+      {
+        "stars":5,
+        "comment":"WEEEEEESHHHH !!! C'était troooooop troooop bon !!!"
+      }
+    ],
+    "averageRating": null
+  },
+  {
+    "restaurantName":"Pizza fifou",
+    "address":"16 rue Lazare Carnot, 34200 Sète",
+    "lat":43.402774,
+    "long":3.699079,
+    "ratings":[
+      {
+        "stars":3,
+        "comment":"Des pizzas moyennes."
+      },
+      {
+        "stars":2,
+        "comment":"Pas terrible du tout."
+      }
+    ],
+    "averageRating": null
+  },
+  {
+    "restaurantName":"Tiellerie",
+    "address":"4 Rue Romain Rolland, 34200 Sète",
+    "lat":43.402343,
+    "long":3.698628,
+    "ratings":[
+      {
+        "stars":4.5,
+        "comment":"Les meilleurs tielles de Sète !"
+      },
+      {
+        "stars":4,
+        "comment":"Première fois que je mange dans un restaurant de tielles et je me suis régalé !"
+      }
+    ],
+    "averageRating": null
+  },
+  {
+    "restaurantName":"Le Restau-Port",
+    "address":"Quai Aspirant Herber, 34200 Sète",
+    "lat":43.398282,
+    "long":3.697904,
+    "ratings":[
+      {
+        "stars":3,
+        "comment":"De la bonne cuisine de la mer !"
+      },
+      {
+        "stars":4,
+        "comment":"Très bonne cuisine méditerranéenne !"
+      },
+      {
+        "stars":1,
+        "comment":"Je suis tombé malade le lendemain de ma venue ! Intoxication alimentaire !"
+      }
+    ],
+    "averageRating": null
+  }
+]
