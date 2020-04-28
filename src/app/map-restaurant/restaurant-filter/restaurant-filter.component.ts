@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Restaurant} from "../../models/restaurant.model";
 import {RestaurantsService} from "../../services/restaurants.service";
+import {faStar} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-restaurant-filter',
@@ -11,6 +12,7 @@ import {RestaurantsService} from "../../services/restaurants.service";
 export class RestaurantFilterComponent implements OnInit {
 
   restauFilter: FormGroup;
+  faStar = faStar;
 
   restaurants: Restaurant [];
 

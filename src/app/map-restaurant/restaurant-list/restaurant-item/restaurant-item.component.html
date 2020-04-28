@@ -27,7 +27,7 @@
       <div *ngFor="let avis of restaurant.ratings" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">
-            {{ avis.stars }}/5
+            {{ avis.stars }}<fa-icon [icon]="faStar" size="xs"></fa-icon>
           </h5>
         </div>
         <p>
