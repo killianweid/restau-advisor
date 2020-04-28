@@ -1,19 +1,48 @@
-<agm-map style="text-shadow: 0px 0px 6.2px grey;" [latitude]="lat"
-         [longitude]="lng"
-         [zoom]="zoom"
-         (mapReady)="onMapReady($event)" >
-  <agm-marker [latitude]="lat" [longitude]="lng" [label]="{color:'blue',text:'Votre position'}" >
+<div id="confirmation_new_restau" *ngIf="confirmationNewRestauIsShowed" class="position-absolute btn btn-danger">
+  <button type="button" class="close" aria-label="Close" (click)="newRestauClose()">
+    <span aria-hidden="true">×</span>
+  </button>
+  <p *ngIf="!creationRestauInPrgs">Ajouter un restaurant à l'endroit cliqué</p>
+  <button *ngIf="!creationRestauInPrgs" class="btn btn-success" (click)="newRestaurant($event)">Oui</button>
+  <button *ngIf="!creationRestauInPrgs" class="btn btn-warning" (click)="newRestauClose()">Non</button>
+  <app-restaurant-form *ngIf="creationRestauInPrgs"
+                       [restaurants]="restaurants"
+                        [coords]="coordsOnRightClick"
+                        (creationRestauInPrgs)="newRestauClose()">
+  </app-restaurant-form>
+</div>
+<agm-map [latitude]="initialPositionLat"
+         [longitude]="initialPositionLng"
+         [zoom]="initialZoom"
+         (mapReady)="onMapReady($event)"
+         (mapClick)="closeWindow()"
+         (mapRightClick)="showOptions($event)">
+  <agm-marker [latitude]="initialPositionLat" [longitude]="initialPositionLng" [label]="{color:'blue',text:'Votre position'}" >
   </agm-marker>
+
   <agm-marker
-    *ngFor="let m of markers; let i = index"
-    [latitude]="m.lat"
-    [longitude]="m.lng"
-    [label]="m.label"
-  id="marker{{i}}">
+    *ngFor="let r of restaurants; let i = index"
+    [latitude]="r.lat"
+    [longitude]="r.long"
+    [label]="r.restaurantName"
+    (markerClick)="selectRestaurant(r.id);showStreetView(r);"
+    id="marker{{i}}">
+    <!--(markerClick)="selectMarker(infoWindow);selectRestaurant(i);showStreetView(r);"-->
 
-    <agm-info-window>
-      <strong>InfoWindow content</strong>
+
+    <!--
+    <agm-info-window #infoWindow>
+      <div class="list-group">
+        <h5 id="nb_avis">{{r.ratings.length}} avis :</h5>
+        <div *ngFor="let avis of r.ratings; let j = index" id="restaurant{{i}}_avis{{j}}" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{avis.stars}}/5</h5>
+          </div>
+          <p>{{ avis.comment }}</p>
+        </div>
+      </div>
     </agm-info-window>
-
+    -->
   </agm-marker>
 </agm-map>
+<div id="pano"></div>

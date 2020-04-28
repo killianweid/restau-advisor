@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "restaurantName":"La Bonne Franquette",
     "address":"10 rue Maurice Clavel, 34200 Sète",
     "lat": 43.403268,
@@ -14,9 +15,11 @@
         "comment":"Tout simplement mon restaurant préféré !"
       }
     ],
-    "averageRating": null
+    "averageRating": null,
+    "isSelected": false
   },
   {
+    "id": 2,
     "restaurantName":"Entre Terre et Mer",
     "address":"2 Grande Rue Mario Roustan, 34200 Sète",
     "lat":43.402415,
@@ -24,16 +27,18 @@
     "ratings":[
       {
         "stars":1,
-        "comment":"La cuisine est vraiment éclaté sol ! J'ai tout vomi en sortant du restaurant qui est très mal entretenu."
+        "comment":"Les plats étaient infectes ! J'ai tout vomi en sortant du restaurant."
       },
       {
         "stars":1,
-        "comment":"Quel cuisine catastrophique, je met 1 juste parce qu'on a eu du pain en plus !"
+        "comment":"Quelle cuisine catastrophique !"
       }
     ],
-    "averageRating": null
+    "averageRating": null,
+    "isSelected": false
   },
   {
+    "id": 3,
     "restaurantName":"Le Cadre Royal",
     "address":"Quai Léopold Suquet, 34200 Sète",
     "lat":43.402912,
@@ -41,16 +46,18 @@
     "ratings":[
       {
         "stars":5,
-        "comment":"On s'est régalé de ouf ! Merci à toute l'équipe du restaurant, c'était succulent."
+        "comment":"On s'est régalé ! Merci à toute l'équipe du restaurant, c'était succulent."
       },
       {
         "stars":5,
-        "comment":"WEEEEEESHHHH !!! C'était troooooop troooop bon !!!"
+        "comment":"Un très beau restaurant avec une superbe vue sur le canal. Les plats étaient tout aussi délicieux !"
       }
     ],
-    "averageRating": null
+    "averageRating": null,
+    "isSelected": false
   },
   {
+    "id": 4,
     "restaurantName":"Pizza fifou",
     "address":"16 rue Lazare Carnot, 34200 Sète",
     "lat":43.402774,
@@ -65,9 +72,11 @@
         "comment":"Pas terrible du tout."
       }
     ],
-    "averageRating": null
+    "averageRating": null,
+    "isSelected": false
   },
   {
+    "id": 5,
     "restaurantName":"Tiellerie",
     "address":"4 Rue Romain Rolland, 34200 Sète",
     "lat":43.402343,
@@ -82,9 +91,11 @@
         "comment":"Première fois que je mange dans un restaurant de tielles et je me suis régalé !"
       }
     ],
-    "averageRating": null
+    "averageRating": null,
+    "isSelected": false
   },
   {
+    "id": 6,
     "restaurantName":"Le Restau-Port",
     "address":"Quai Aspirant Herber, 34200 Sète",
     "lat":43.398282,
@@ -103,6 +114,7 @@
         "comment":"Je suis tombé malade le lendemain de ma venue ! Intoxication alimentaire !"
       }
     ],
-    "averageRating": null
+    "averageRating": null,
+    "isSelected": false
   }
 ]

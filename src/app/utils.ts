@@ -7,4 +7,5 @@ export function averageNbOfStars(ratings:Rating[]) {
       sumRating += ratings[i].stars;
     }
     return Number(((sumRating)/nbRatings).toFixed(1));
+    //TODO utiliser reduce()
 }

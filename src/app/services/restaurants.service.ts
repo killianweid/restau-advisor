@@ -4,7 +4,9 @@ import { Restaurant } from "../models/restaurant.model";
 import restaurantsJson from 'src/assets/json/restaurants.json';
 import { averageNbOfStars } from '../utils';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RestaurantsService {
 
   restaurants: Restaurant[] = [];
@@ -26,8 +28,17 @@ export class RestaurantsService {
     this.emitRestaurants();
   }
 
-  getAvgNbOfStars(restaurant: Restaurant) {
+  getAvgNbOfStars(restaurant: Restaurant): number {
     return averageNbOfStars(restaurant.ratings);
+  }
+
+
+  filtrerRestaurants(borneInf:number,borneSup:number){
+    this.getRestaurants();
+    this.restaurants = this.restaurants.filter(restaurant => {
+      return (restaurant.averageRating >= borneInf && restaurant.averageRating <= borneSup) || (restaurant.averageRating <= borneInf && restaurant.averageRating >= borneSup);
+    });
+    this.emitRestaurants();
   }
 
   getSingleRestaurant(id: number) {

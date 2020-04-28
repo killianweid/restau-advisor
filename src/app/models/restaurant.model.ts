@@ -1,10 +1,10 @@
 import {Rating} from "./rating.model";
 
-export interface Restaurant {
-  restaurantName: string;
+export class Restaurant {
   address: string;
-  lat: number;
-  long: number;
   ratings: Rating[];
   averageRating: number;
+  isSelected: boolean=false;
+  constructor(public id:number, public restaurantName:string, public lat: number, public long: number) {
+  }
 }

@@ -9,15 +9,19 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { AgmCoreModule } from "@agm/core";
 import {RestaurantsService} from "./services/restaurants.service";
-import { MapViewComponent } from './map-restaurant/map-view/map-view.component';
-import { RestaurantListComponent } from './map-restaurant/restaurant-list/restaurant-list.component';
-import {MarkersService} from "./services/markers.service";
 import { secret } from "../../secret.js";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RestaurantItemComponent } from './map-restaurant/restaurant-list/restaurant-item/restaurant-item.component';
+import { RestaurantListComponent } from './map-restaurant/restaurant-list/restaurant-list.component';
+import { MapViewComponent } from './map-restaurant/map-view/map-view.component';
+import { RestaurantFilterComponent } from './map-restaurant/restaurant-filter/restaurant-filter.component';
+import { RestaurantNewRatingComponent } from './map-restaurant/restaurant-list/restaurant-item/restaurant-new-rating/restaurant-new-rating.component';
+import { RestaurantFormComponent } from './map-restaurant/restaurant-list/restaurant-form/restaurant-form.component';
 
 const appRoutes: Routes = [
-  { path: 'carte', component: MapRestaurantComponent },
-  { path: '', redirectTo: 'carte', pathMatch: 'full' },
-  { path: '**', redirectTo: 'carte' }
+  { path: 'carte-et-restaurants', component: MapRestaurantComponent },
+  { path: '', redirectTo: 'carte-et-restaurants', pathMatch: 'full' },
+  { path: '**', redirectTo: 'carte-et-restaurants' }
 ];
 
 @NgModule({
@@ -25,8 +29,12 @@ const appRoutes: Routes = [
     AppComponent,
     HeaderComponent,
     MapRestaurantComponent,
+    RestaurantItemComponent,
+    RestaurantListComponent,
     MapViewComponent,
-    RestaurantListComponent
+    RestaurantFilterComponent,
+    RestaurantNewRatingComponent,
+    RestaurantFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,11 +44,11 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     AgmCoreModule.forRoot({
       apiKey: secret.AGM_CORE_MODULE_API_KEY
-    })
+    }),
+    FontAwesomeModule
   ],
   providers: [
-    RestaurantsService,
-    MarkersService
+    RestaurantsService
   ],
   bootstrap: [AppComponent]
 })
