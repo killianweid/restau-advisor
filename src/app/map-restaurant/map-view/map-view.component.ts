@@ -137,4 +137,8 @@ export class MapViewComponent implements OnInit {
     }
   }
 
+  //TODO au clic droit on met un marker à l'endroit cliqué avec "Nouveau restaurant" comme label
+  // et lorsqu'on entrera le nom du restaurant dans le formulaire il sera écrit au fur et à mesure dans le label de ce marker
+  // au momement où le restaurant seré le marker sera supprimé et on ajoutera le restaurant à sa place (nouveau marker)
+
 }
