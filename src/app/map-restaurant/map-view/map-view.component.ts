@@ -5,6 +5,8 @@ import {} from "googlemaps";
 declare const google: any;
 import {GoogleMap} from "@agm/core/services/google-maps-types";
 import {AgmInfoWindow} from "@agm/core";
+import {RestaurantsService} from "../../services/restaurants.service";
+import {Rating} from "../../models/rating.model";
 
 @Component({
   selector: 'app-map-view',
@@ -28,10 +30,11 @@ export class MapViewComponent implements OnInit {
   lastRestaurantSelected:string = null;
 
   map: any;
+  markers: any[]=[];
 
   @Input() restaurants: Restaurant[];
 
-  constructor() { }
+  constructor(private restaurantsService: RestaurantsService) { }
 
   ngOnInit(): void {
     if ("geolocation" in navigator) {
@@ -40,6 +43,7 @@ export class MapViewComponent implements OnInit {
         this.initialPositionLat = position.coords.latitude;
         this.initialPositionLng = position.coords.longitude;
       });
+
     } else {
       alert("La géolocalisation n'est pas supporté par ce navigateur.");
     }
@@ -48,12 +52,72 @@ export class MapViewComponent implements OnInit {
   public onMapReady(map): void {
     this.map = map;
     google.maps.event.addListener(this.map, 'idle', () => {
-      this.showVisibleRestaurants(this.map);
+      this.collectGooglePlacesRestaurants();
+      this.showVisibleRestaurants();
     });
   }
 
-  public showVisibleRestaurants(map): void {
-    const bounds = map.getBounds();
+  public collectGooglePlacesRestaurants(): void {
+    // on supprime les restaurants qui ne sont pas visible
+   if(this.restaurants.length > 1) {
+      this.restaurants.map(restau => {
+        // on ne supprime pas les restaurants du fichier json donc on ignore les id inférieur à 6
+        if(restau.id > 6){
+          const positionRestau = new google.maps.LatLng(restau.lat,restau.long);
+          if(!(this.map.getBounds().contains(positionRestau))){
+            const indexRestauToRemove = this.restaurants.indexOf(restau);
+            if(indexRestauToRemove > -1) {
+              this.restaurants.splice(indexRestauToRemove,1);
+            }
+          }
+        }
+      });
+     this.restaurantsService.emitRestaurants();
+    }
+
+    //const actualPosition = new google.maps.LatLng(this.initialPositionLat, this.initialPositionLng);
+    const request = {
+      bounds: this.map.getBounds(),
+      type: ['restaurant']
+    };
+    const service = new google.maps.places.PlacesService(this.map);
+
+    service.nearbySearch(request, (results, status) => {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (let i = 0; i < results.length; i++) {
+          // si le restaurant existe deja dans la liste des restaurants alors on ne l'ajoute pas
+          if (!(this.restaurantsService.containsRestaurant(results[i].geometry.location.lat(), results[i].geometry.location.lng()))) {
+            const newRestau = new Restaurant(this.restaurants[this.restaurants.length - 1].id + 1, results[i].name, results[i].geometry.location.lat(), results[i].geometry.location.lng());
+            newRestau.averageRating = results[i].rating;
+            newRestau.address = results[i].vicinity;
+            /* Récupération des avis du restaurant actuel */
+            const request2 = {
+              placeId: results[i].place_id
+            }
+            service.getDetails(request2, (place, status) => {
+              if (status == google.maps.places.PlacesServiceStatus.OK) {
+                if (place.reviews !== undefined) {
+                  const reviews: Rating[] = [];
+                  place.reviews.map(review =>
+                    reviews.push(new Rating(review.rating, review.text))
+                  );
+                  newRestau.ratings = reviews;
+                }
+                if (place.photo !== undefined) {
+                  newRestau.icon = place.photos[0].getUrl({maxWidth: 150, maxHeight: 100});
+                }
+              }
+            });
+            this.restaurantsService.addNewRestaurant(newRestau);
+          }
+        }
+      }
+    });
+
+  }
+
+  public showVisibleRestaurants(): void {
+    const bounds = this.map.getBounds();
     let count = 0;
     for (let i = 0; i < this.restaurants.length; i++) {
       const restaurant = this.restaurants[i];
@@ -70,7 +134,14 @@ export class MapViewComponent implements OnInit {
         }
       }
     }
-    $("#nb_restaurants").text(count+" restaurants actuellement visible sur la carte");
+    if(count > 1) {
+      $("#nb_restaurants").text(count+" restaurants actuellement visible sur la carte");
+    }else if (count === 1){
+      $("#nb_restaurants").text(count+" restaurant actuellement visible sur la carte");
+    }else if(count === 0){
+      $("#nb_restaurants").text("Aucun restaurant actuellement visible sur la carte");
+    }
+
   }
 
   public closeWindow(): void{
@@ -121,24 +192,36 @@ export class MapViewComponent implements OnInit {
   }
 
   public showOptions(event): void {
-    //$("#confirmation_new_restau").removeClass("d-none");
-    this.confirmationNewRestauIsShowed = !this.confirmationNewRestauIsShowed;
+    this.confirmationNewRestauIsShowed = true;
+    this.creationRestauInPrgs = false;
     this.coordsOnRightClick = event.coords;
+    if(this.markers.length !== 0) {
+      this.markers.map(marker=>marker.setMap(null));
+      this.markers = [];
+      this.markers.length = 0;
+    }
+    const test = new google.maps.Marker({
+      position:event.coords,
+      map:this.map,
+      label:"Nouveau restaurant"
+    });
+    this.markers.push(test);
   }
 
   public newRestaurant(event): void {
-    this.creationRestauInPrgs = !this.creationRestauInPrgs;
+    this.creationRestauInPrgs = true;
   }
 
   newRestauClose(): void {
-    this.confirmationNewRestauIsShowed = !this.confirmationNewRestauIsShowed;
+    this.confirmationNewRestauIsShowed = false;
     if(this.creationRestauInPrgs){
       this.creationRestauInPrgs = false;
     }
+    this.markers[0].setMap(null);
+    this.markers.pop();
   }
 
-  //TODO au clic droit on met un marker à l'endroit cliqué avec "Nouveau restaurant" comme label
-  // et lorsqu'on entrera le nom du restaurant dans le formulaire il sera écrit au fur et à mesure dans le label de ce marker
-  // au momement où le restaurant seré le marker sera supprimé et on ajoutera le restaurant à sa place (nouveau marker)
+  // TODO  lorsqu'on entrera le nom du restaurant dans le formulaire il sera écrit au fur et à mesure dans le label de ce marker
+  // le marker sera supprimé et on ajoutera le restaurant à sa place (nouveau marker)
 
 }

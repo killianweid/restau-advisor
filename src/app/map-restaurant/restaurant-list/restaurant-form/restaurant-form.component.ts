@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Restaurant} from "../../../models/restaurant.model";
+import {RestaurantsService} from "../../../services/restaurants.service";
 
 @Component({
   selector: 'app-restaurant-form',
@@ -14,7 +15,8 @@ export class RestaurantFormComponent implements OnInit {
   @Input() coords: any;
   @Output() creationRestauInPrgs: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private restaurantsService: RestaurantsService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -29,7 +31,8 @@ export class RestaurantFormComponent implements OnInit {
   public onSaveRestau(): void {
     const name = this.restauForm.get('name').value;
     const newRestaurant = new Restaurant(this.restaurants[this.restaurants.length-1].id+1,name,this.coords.lat,this.coords.lng);
-    this.restaurants.push(newRestaurant);
+    this.restaurantsService.addNewRestaurant(newRestaurant);
+    //this.restaurants.push(newRestaurant);
     this.creationRestauInPrgs.emit(false);
 
   }

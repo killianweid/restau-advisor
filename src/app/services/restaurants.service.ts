@@ -29,7 +29,11 @@ export class RestaurantsService {
   }
 
   getAvgNbOfStars(restaurant: Restaurant): number {
-    return averageNbOfStars(restaurant.ratings);
+    if(restaurant.ratings !== undefined){
+      return averageNbOfStars(restaurant.ratings);
+    }else{
+      return -1;
+    }
   }
 
 
@@ -41,13 +45,18 @@ export class RestaurantsService {
     this.emitRestaurants();
   }
 
-  getSingleRestaurant(id: number) {
+  addNewRestaurant(restaurant: Restaurant) {
+    this.restaurants.push(restaurant);
+    this.emitRestaurants();
   }
 
-  createNewRestaurant(newRestaurant: Restaurant) {
-  }
-
-  removeRestaurant(restaurant: Restaurant) {
-
+  containsRestaurant(lat,lng) {
+    let result = false;
+    this.restaurants.map(restaurant => {
+      if(restaurant.lat === lat && restaurant.long === lng){
+        result = true;
+      }
+    });
+    return result;
   }
 }

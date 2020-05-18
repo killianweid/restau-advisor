@@ -14,7 +14,7 @@
 <agm-map [latitude]="initialPositionLat"
          [longitude]="initialPositionLng"
          [zoom]="initialZoom"
-         (mapReady)="onMapReady($event)"
+         (mapReady)="onMapReady($event);"
          (mapClick)="closeWindow()"
          (mapRightClick)="showOptions($event)">
   <agm-marker [latitude]="initialPositionLat" [longitude]="initialPositionLng" [label]="{color:'blue',text:'Votre position'}" >
@@ -44,5 +44,13 @@
     </agm-info-window>
     -->
   </agm-marker>
+
+  <agm-marker *ngFor="let m of markers;">
+    [latitude]="m.position.lat"
+    [longitude]="m.position.lng"
+    [label]="m.label"
+  </agm-marker>
 </agm-map>
+<div id="image">
+</div>
 <div id="pano"></div>

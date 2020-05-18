@@ -1,5 +1,7 @@
 <div id="restaurant_{{restaurant.id}}" (click)="onClickRestaurant()" class="list-group-item list-group-item-action flex-column align-items-start bg-light">
   <div class="d-flex w-100 justify-content-between">
+    <img *ngIf="restaurant.icon !== null" src="{{restaurant.icon}}" alt="Photo {{restaurant.restaurantName}}"/>
+    <img *ngIf="restaurant.icon === null" width="120" height="100" src="../assets/images/photo_restaurant_default.jpg" alt="Photo {{restaurant.restaurantName}}"/>
     <h5 class="mb-1">
       {{ restaurant.restaurantName }}
     </h5>
