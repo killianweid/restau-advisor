@@ -3,7 +3,7 @@
     <span aria-hidden="true">×</span>
   </button>
   <p *ngIf="!creationRestauInPrgs">Ajouter un restaurant à l'endroit cliqué</p>
-  <button *ngIf="!creationRestauInPrgs" class="btn btn-success" (click)="newRestaurant($event)">Oui</button>
+  <button *ngIf="!creationRestauInPrgs" class="btn btn-success" (click)="newRestaurant()">Oui</button>
   <button *ngIf="!creationRestauInPrgs" class="btn btn-warning" (click)="newRestauClose()">Non</button>
   <app-restaurant-form *ngIf="creationRestauInPrgs"
                        [restaurants]="restaurants"

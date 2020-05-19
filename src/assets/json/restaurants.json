@@ -17,7 +17,8 @@
     ],
     "averageRating": null,
     "isSelected": false,
-    "icon": null
+    "icon": null,
+    "placeId": null
   },
   {
     "id": 2,
@@ -37,7 +38,8 @@
     ],
     "averageRating": null,
     "isSelected": false,
-    "icon": null
+    "icon": null,
+    "placeId": null
   },
   {
     "id": 3,
@@ -57,7 +59,8 @@
     ],
     "averageRating": null,
     "isSelected": false,
-    "icon": null
+    "icon": null,
+    "placeId": null
   },
   {
     "id": 4,
@@ -77,7 +80,8 @@
     ],
     "averageRating": null,
     "isSelected": false,
-    "icon": null
+    "icon": null,
+    "placeId": null
   },
   {
     "id": 5,
@@ -97,7 +101,8 @@
     ],
     "averageRating": null,
     "isSelected": false,
-    "icon": null
+    "icon": null,
+    "placeId": null
   },
   {
     "id": 6,
@@ -121,6 +126,7 @@
     ],
     "averageRating": null,
     "isSelected": false,
-    "icon": null
+    "icon": null,
+    "placeId": null
   }
 ]

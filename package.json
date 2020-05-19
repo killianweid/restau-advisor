@@ -24,6 +24,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@types/googlemaps": "^3.39.6",
     "bootstrap": "^4.4.1",
     "googlemaps": "^1.12.0",
     "jquery": "^3.5.1",

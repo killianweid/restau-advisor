@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+/// <reference path="<relevant path>/node_modules/@types/googlemaps/index.d.ts" />
 
 @Component({
   selector: 'app-root',

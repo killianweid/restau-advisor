@@ -50,10 +50,12 @@ export class RestaurantsService {
     this.emitRestaurants();
   }
 
-  containsRestaurant(lat,lng) {
+
+
+  containsRestaurant(googlePlacesId) {
     let result = false;
     this.restaurants.map(restaurant => {
-      if(restaurant.lat === lat && restaurant.long === lng){
+      if(restaurant.placeId === googlePlacesId){
         result = true;
       }
     });
