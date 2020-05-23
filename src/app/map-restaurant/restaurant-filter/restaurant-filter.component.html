@@ -1,14 +1,22 @@
-<form [formGroup]="restauFilter" class="form-inline">
-  <div class="form-group">
-    <label for="inferior_number">Entre</label>
-    <input type="number" id="inferior_number"
-           class="form-control" formControlName="inferior_number" min="1" max="5" (input)="onFilterRestau()">
-  </div>
-  <div class="form-group">
-    <label for="superior_number">et</label>
-    <input type="number" id="superior_number"
-           class="form-control" formControlName="superior_number" min="1" max="5" (input)="onFilterRestau()">
-    <fa-icon [icon]="faStar"></fa-icon>
+<div class="row bg-info">
+  <div class="col-4 text-left align-self-center font-weight-bold">
+    <fa-icon [icon]="faFilter"></fa-icon>
+    Filtrage instantané
   </div>
 
-</form>
+  <form [formGroup]="restauFilter" class="form-inline col-8">
+    <div class="form-group">
+      <label for="inferior_number">Restaurants entre</label>
+      <input type="number" id="inferior_number"
+             class="form-control ml-2 mr-2 h-25" formControlName="inferior_number" min="1" max="5" (input)="onFilterRestau()">
+    </div>
+    <div class="form-group">
+      <label for="superior_number">et</label>
+      <input type="number" id="superior_number"
+             class="form-control ml-2 mr-2 h-25" formControlName="superior_number" min="1" max="5" (input)="onFilterRestau()">
+      <fa-icon [icon]="faStar"></fa-icon>
+    </div>
+
+  </form>
+</div>
+

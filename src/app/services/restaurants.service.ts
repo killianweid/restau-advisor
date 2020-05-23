@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { Restaurant } from "../models/restaurant.model";
 import restaurantsJson from 'src/assets/json/restaurants.json';
 import { averageNbOfStars } from '../utils';
+import $ from "jquery";
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,14 @@ export class RestaurantsService {
     this.restaurants = this.restaurants.filter(restaurant => {
       return (restaurant.averageRating >= borneInf && restaurant.averageRating <= borneSup) || (restaurant.averageRating <= borneInf && restaurant.averageRating >= borneSup);
     });
+    const nbRestaurants = this.restaurants.length;
+    if(nbRestaurants > 1) {
+      $("#nb_restaurants").text(nbRestaurants+" restaurants correspondant à vos recherches sont actuellement visible sur la carte");
+    }else if (nbRestaurants === 1){
+      $("#nb_restaurants").text(nbRestaurants+" restaurant correspondant à vos recherches sont actuellement visible sur la carte");
+    }else if(nbRestaurants === 0){
+      $("#nb_restaurants").text("Aucun restaurant correspondant à vos recherches sont actuellement visible sur la carte");
+    }
     this.emitRestaurants();
   }
 

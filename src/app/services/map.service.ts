@@ -60,7 +60,7 @@ export class MapService {
           }
         });
       }
-      callback();
+      callback(this.restaurants, this.map.getBounds());
     });
   }
 
@@ -92,12 +92,10 @@ export class MapService {
   }
 
 
-  public showVisibleRestaurants(): void {
+  public showVisibleRestaurants(restaurants: Restaurant[], bounds: google.maps.LatLngBounds): void {
     console.log("Methode showVisibleRestaurants()");
-    const bounds = this.map.getBounds();
     let count = 0;
-    console.log(this.restaurants);
-    this.restaurants.map(restaurant => {
+    restaurants.map(restaurant => {
       const elementRestaurantListe = $("#restaurant_"+restaurant.id);
       const latlng = new google.maps.LatLng(restaurant.lat,restaurant.long);
       if (bounds.contains(latlng) === true) {
@@ -111,13 +109,14 @@ export class MapService {
         }
       }
     });
-    if(count > 1) {
-      $("#nb_restaurants").text(count+" restaurants actuellement visible sur la carte");
-    }else if (count === 1){
-      $("#nb_restaurants").text(count+" restaurant actuellement visible sur la carte");
+    if(count > 1 && count < 10) {
+      $("#nb_restaurants").html("<span class=\"bg-danger rounded-circle p-1 pl-2 pr-2 text-white\">"+count+"</span> restaurants correspondant à vos recherches sont actuellement visible sur la carte");
+    } else if(count > 10) {
+      $("#nb_restaurants").html("<span class=\"bg-danger rounded-circle pl-2 pr-2 pt-1 pb-1 text-white\">"+count+"</span> restaurants correspondant à vos recherches sont actuellement visible sur la carte");
+    } else if (count === 1){
+      $("#nb_restaurants").html("<span class=\"bg-danger rounded-circle pl-2 pr-2 pt-1 pb-1 text-white\">"+count+"</span> restaurant correspondant à vos recherches sont actuellement visible sur la carte");
     }else if(count === 0){
-      $("#nb_restaurants").text("Aucun restaurant actuellement visible sur la carte");
+      $("#nb_restaurants").html("<span class=\"bg-danger rounded p-1 text-white\">Aucun restaurant </span>correspondant à vos recherches sont actuellement visible sur la carte");
     }
-
   }
 }

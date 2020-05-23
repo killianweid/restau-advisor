@@ -17,7 +17,7 @@ import { MapViewComponent } from './map-restaurant/map-view/map-view.component';
 import { RestaurantFilterComponent } from './map-restaurant/restaurant-filter/restaurant-filter.component';
 import { RestaurantNewRatingComponent } from './map-restaurant/restaurant-list/restaurant-item/restaurant-new-rating/restaurant-new-rating.component';
 import { RestaurantFormComponent } from './map-restaurant/restaurant-list/restaurant-form/restaurant-form.component';
-import {MapService} from "./services/map.service";
+import { StarterChoiceComponent } from './starter-choice/starter-choice.component';
 
 const appRoutes: Routes = [
   { path: 'carte-et-restaurants', component: MapRestaurantComponent },
@@ -36,6 +36,7 @@ const appRoutes: Routes = [
     RestaurantFilterComponent,
     RestaurantNewRatingComponent,
     RestaurantFormComponent,
+    StarterChoiceComponent,
   ],
   imports: [
     BrowserModule,
