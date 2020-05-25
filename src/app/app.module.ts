@@ -18,11 +18,13 @@ import { RestaurantFilterComponent } from './map-restaurant/restaurant-filter/re
 import { RestaurantNewRatingComponent } from './map-restaurant/restaurant-list/restaurant-item/restaurant-new-rating/restaurant-new-rating.component';
 import { RestaurantFormComponent } from './map-restaurant/restaurant-list/restaurant-form/restaurant-form.component';
 import { StarterChoiceComponent } from './starter-choice/starter-choice.component';
+import { AutoCompleteComponent } from './starter-choice/auto-complete/auto-complete.component';
 
 const appRoutes: Routes = [
+  { path: 'starter-position-choice', component: StarterChoiceComponent },
   { path: 'carte-et-restaurants', component: MapRestaurantComponent },
-  { path: '', redirectTo: 'carte-et-restaurants', pathMatch: 'full' },
-  { path: '**', redirectTo: 'carte-et-restaurants' }
+  { path: '', redirectTo: 'starter-position-choice', pathMatch: 'full' },
+  { path: '**', redirectTo: 'starter-position-choice' }
 ];
 
 @NgModule({
@@ -37,6 +39,7 @@ const appRoutes: Routes = [
     RestaurantNewRatingComponent,
     RestaurantFormComponent,
     StarterChoiceComponent,
+    AutoCompleteComponent,
   ],
   imports: [
     BrowserModule,

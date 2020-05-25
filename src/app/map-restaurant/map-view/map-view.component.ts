@@ -37,15 +37,8 @@ export class MapViewComponent implements OnInit {
               private mapService: MapService) { }
 
   ngOnInit(): void {
-    if ("geolocation" in navigator) {
-      /* la géolocalisation est disponible */
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.initialPositionLat = position.coords.latitude;
-        this.initialPositionLng = position.coords.longitude;
-      });
-    } else {
-      alert("La géolocalisation n'est pas supporté par ce navigateur.");
-    }
+    this.initialPositionLat = this.mapService.referencePosition.lat();
+    this.initialPositionLng = this.mapService.referencePosition.lng();
   }
 
   public onMapReady(map:google.maps.Map): void {
@@ -70,7 +63,7 @@ export class MapViewComponent implements OnInit {
   }
 
   public showStreetView(restaurant: Restaurant): void {
-
+    //TODO ajouter un bouton fermer la google street view
     const panorama = new google.maps.StreetViewPanorama(
       document.getElementById('pano'), {
         position: new google.maps.LatLng(restaurant.lat,restaurant.long),

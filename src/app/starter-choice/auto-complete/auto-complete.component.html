@@ -1,0 +1,12 @@
+<div class="form-group">
+<input class="input"
+       id="adresse"
+       type="text"
+       [(ngModel)]="autocompleteInput"
+       #addresstext (input)="onInputAddress()" style="padding: 12px 20px; border: 1px solid #ccc; width: 400px">
+</div>
+<div class="form-group">
+  <div class="text-center mt-1">
+    <button class="btn btn-success btn-lg" (click)="onClickAdress()" [disabled]="!placeEntered">OK</button>
+  </div>
+</div>

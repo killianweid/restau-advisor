@@ -9,6 +9,7 @@ import $ from "jquery";
 })
 export class MapService {
   map: google.maps.Map;
+  referencePosition: google.maps.LatLng = null;
   restaurants: Restaurant[];
 
   constructor(private restaurantsService: RestaurantsService) {

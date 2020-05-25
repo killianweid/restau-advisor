@@ -1,1 +1,27 @@
-<p>starter-choice works!</p>
+<div class="bg-light rounded text-center font-weight-bold w-50 p-2 m-auto">
+  <h3 class="mb-0"> Choisissez votre position de référence :</h3>
+</div>
+
+<div id="block_choices" class="row mt-2">
+  <div class="col-6 block_choice rounded p-2">
+    <h4 class="bg-info rounded text-center p-2 w-75 mr-auto ml-auto">Votre position géographique actuelle : </h4>
+    <agm-map [latitude]="actualPositionLat"
+             [longitude]="actualPositionLng"
+             [zoom]="initialZoom"
+             (mapReady)="onMapReady($event)">
+      <agm-marker [latitude]="actualPositionLat" [longitude]="actualPositionLng" [label]="{color:'blue',text:'Votre position'}" >
+      </agm-marker>
+
+    </agm-map>
+    <div class="text-center mt-1">
+      <button class="btn btn-success btn-lg" (click)="onClickPosition()">OK</button>
+    </div>
+
+  </div>
+  <div class="col-5 block_choice rounded p-2 align-self-center ml-2">
+    <h4 class="bg-info rounded text-center p-2 mr-auto ml-auto w-75">Une adresse de votre choix :</h4>
+    <form class="form-inline p-2 justify-content-center" [formGroup]="adressSearch">
+        <app-auto-complete></app-auto-complete>
+    </form>
+  </div>
+</div>

@@ -1,5 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 body{
-  background-image: url("assets/images/arriere_plan.jpg");
+  background-image: url("assets/images/coffee-shop.jpg");
   background-size: cover;
+}
+
+html, body {
+  height: 100%;
+}
+
+.container {
+  max-width: 1280px;
+  min-height: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+footer{
+  position: relative;
+  width: 100%;
+  bottom: 0;
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+@media screen and (max-width: 800px) {
+
+  footer{
+    bottom: auto !important;
+  }
+
 }
