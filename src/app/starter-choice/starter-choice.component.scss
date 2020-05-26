@@ -9,3 +9,25 @@ agm-map {
 .block_choice {
   background-color: rgba(255,255,255,0.6);
 }
+
+#block_choice_adresse {
+  margin-left: 0.5rem;
+}
+
+@media screen and (max-width: 992px) {
+  #block_map_choice {
+    height: 60%;
+  }
+  .block_choice {
+    background-color: rgba(0,0,0,0) !important;
+  }
+
+  #block_choice_adresse {
+    margin-left: 0 !important;
+  }
+}
+
+app-auto-complete {
+  width: 100%;
+}
+

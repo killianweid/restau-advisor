@@ -49,6 +49,7 @@ export class RestaurantFilterComponent implements OnInit {
       }
       const nombreSuperieur = input2.value
       this.restaurantsService.filtrerRestaurants(nombreInferieur, nombreSuperieur);
+      //TODO beug filtrage
     }
   }
 

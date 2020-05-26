@@ -1,9 +1,20 @@
 agm-map {
   height: 60%;
+  width: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  agm-map{
+    height: 320px;
+  }
+
+  #pano {
+    height: 202px !important;
+    position: sticky !important;
+  }
 }
 
 #pano {
-  height: 40%;
   width: 100%;
 }
 
@@ -12,6 +23,14 @@ agm-map {
   border: solid;
   width: 179px;
   border-radius: 8px;
+}
+
+#btn_close_street_view {
+  position: relative;
+  z-index: 2;
+  float:right;
+  right: 52px;
+  top: 5px;
 }
 
 

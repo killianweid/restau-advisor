@@ -5,3 +5,9 @@ app-restaurant-item {
 .restaurants-list {
   height: 700px;
 }
+
+@media screen and (max-width: 992px) {
+  #nb_restaurants {
+    text-align: center;
+  }
+}

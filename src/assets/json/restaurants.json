@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "restaurantName":"La Bonne Franquette",
     "address":"10 rue Maurice Clavel, 34200 Sète",
     "lat": 43.403268,
@@ -21,7 +21,7 @@
     "placeId": null
   },
   {
-    "id": 2,
+    "id": "2",
     "restaurantName":"Entre Terre et Mer",
     "address":"2 Grande Rue Mario Roustan, 34200 Sète",
     "lat":43.402415,
@@ -42,7 +42,7 @@
     "placeId": null
   },
   {
-    "id": 3,
+    "id": "3",
     "restaurantName":"Le Cadre Royal",
     "address":"Quai Léopold Suquet, 34200 Sète",
     "lat":43.402912,
@@ -63,7 +63,7 @@
     "placeId": null
   },
   {
-    "id": 4,
+    "id": "4",
     "restaurantName":"Pizza fifou",
     "address":"16 rue Lazare Carnot, 34200 Sète",
     "lat":43.402774,
@@ -84,7 +84,7 @@
     "placeId": null
   },
   {
-    "id": 5,
+    "id": "5",
     "restaurantName":"Tiellerie",
     "address":"4 Rue Romain Rolland, 34200 Sète",
     "lat":43.402343,
@@ -105,7 +105,7 @@
     "placeId": null
   },
   {
-    "id": 6,
+    "id": "6",
     "restaurantName":"Le Restau-Port",
     "address":"Quai Aspirant Herber, 34200 Sète",
     "lat":43.398282,

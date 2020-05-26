@@ -3,7 +3,7 @@
 </div>
 
 <div id="block_choices" class="row mt-2">
-  <div class="col-6 block_choice rounded p-2">
+  <div id="block_map_choice" class="col-12 col-sm-12 col-lg-6 col-md-12 col-xl-6 block_choice rounded p-2">
     <h4 class="bg-info rounded text-center p-2 w-75 mr-auto ml-auto">Votre position géographique actuelle : </h4>
     <agm-map [latitude]="actualPositionLat"
              [longitude]="actualPositionLng"
@@ -14,11 +14,14 @@
 
     </agm-map>
     <div class="text-center mt-1">
-      <button class="btn btn-success btn-lg" (click)="onClickPosition()">OK</button>
+      <button class="btn btn-success btn-lg" (click)="onClickPosition()" [disabled]="!mapReady">OK</button>
     </div>
 
   </div>
-  <div class="col-5 block_choice rounded p-2 align-self-center ml-2">
+  <div class="d-sm-block d-md-block d-lg-none d-xl-none col-2 mr-auto ml-auto text-center rounded shadow-lg">
+    <h1 class=" bg-warning">OU</h1>
+  </div>
+  <div id="block_choice_adresse" class="col-12 col-sm-12 col-lg-5 col-md-12 col-xl-5 block_choice rounded p-2 align-self-center">
     <h4 class="bg-info rounded text-center p-2 mr-auto ml-auto w-75">Une adresse de votre choix :</h4>
     <form class="form-inline p-2 justify-content-center" [formGroup]="adressSearch">
         <app-auto-complete></app-auto-complete>

@@ -17,6 +17,7 @@ export class StarterChoiceComponent implements OnInit {
   initialZoom: number = 17;
 
   map: google.maps.Map;
+  mapReady: boolean = false;
 
   adressSearch: FormGroup;
 
@@ -39,6 +40,7 @@ export class StarterChoiceComponent implements OnInit {
 
   public onMapReady(map:google.maps.Map): void {
     this.map = map;
+    this.mapReady = true;
   }
 
   public initForm(): void {

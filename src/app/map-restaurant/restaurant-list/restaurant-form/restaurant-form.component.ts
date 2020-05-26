@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Restaurant} from "../../../models/restaurant.model";
 import {RestaurantsService} from "../../../services/restaurants.service";
+import { strRandom, findRestaurantById } from '../../../utils';
 
 @Component({
   selector: 'app-restaurant-form',
@@ -30,9 +31,24 @@ export class RestaurantFormComponent implements OnInit {
 
   public onSaveRestau(): void {
     const name = this.restauForm.get('name').value;
-    const newRestaurant = new Restaurant(this.restaurants[this.restaurants.length-1].id+1,name,this.coords.lat,this.coords.lng);
+    const newRestaurant = new Restaurant(name,this.coords.lat,this.coords.lng);
+    //name.strRandom();
+    let test = strRandom({
+      includeUpperCase: false,
+      includeNumbers: true,
+      length: 20,
+      startsWithLowerCase: true
+    });
+    while(findRestaurantById(this.restaurants, test) !== -1){
+      test = strRandom({
+        includeUpperCase: false,
+        includeNumbers: true,
+        length: 20,
+        startsWithLowerCase: true
+      });
+    }
+    newRestaurant.id = test;
     this.restaurantsService.addNewRestaurant(newRestaurant);
-    //this.restaurants.push(newRestaurant);
     this.creationRestauInPrgs.emit(false);
 
   }

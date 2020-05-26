@@ -59,9 +59,7 @@ export class RestaurantsService {
     this.emitRestaurants();
   }
 
-
-
-  containsRestaurant(googlePlacesId) {
+  containsRestaurant(googlePlacesId: string) {
     let result = false;
     this.restaurants.map(restaurant => {
       if(restaurant.placeId === googlePlacesId){

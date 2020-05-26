@@ -27,22 +27,6 @@
     [label]="r.restaurantName"
     (markerClick)="selectRestaurant(r.id);showStreetView(r);"
     id="marker{{i}}">
-    <!--(markerClick)="selectMarker(infoWindow);selectRestaurant(i);showStreetView(r);"-->
-
-
-    <!--
-    <agm-info-window #infoWindow>
-      <div class="list-group">
-        <h5 id="nb_avis">{{r.ratings.length}} avis :</h5>
-        <div *ngFor="let avis of r.ratings; let j = index" id="restaurant{{i}}_avis{{j}}" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{avis.stars}}/5</h5>
-          </div>
-          <p>{{ avis.comment }}</p>
-        </div>
-      </div>
-    </agm-info-window>
-    -->
   </agm-marker>
 
   <agm-marker *ngFor="let m of markers;">
@@ -51,6 +35,7 @@
     [label]="m.label"
   </agm-marker>
 </agm-map>
-<div id="image">
+<div id="pano" class="h-50 d-none">
+  <div id="btn_close_street_view" class="btn btn-lg btn-danger d-none" (click)="onClickCloseStreetView()">×</div>
 </div>
-<div id="pano"></div>
+

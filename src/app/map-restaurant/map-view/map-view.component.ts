@@ -70,19 +70,46 @@ export class MapViewComponent implements OnInit {
         pov: {
           heading: 34,
           pitch: 10
-        }
+        },
+        enableCloseButton: true
       });
     this.map.setStreetView(panorama);
+    const elementHTMLPano = $("#pano");
+    if(!elementHTMLPano.hasClass("h-50")){
+      elementHTMLPano.addClass("h-50");
+    }
+    if(elementHTMLPano.hasClass("d-none")){
+      elementHTMLPano.removeClass("d-none");
+    }
+    $("#btn_close_street_view").removeClass("d-none");
     this.restaurants.map(restaurantListe => {
       if(restaurantListe === restaurant){
-        restaurantListe.isSelected = !restaurantListe.isSelected;
+        restaurantListe.isSelected = true;
       }else if(restaurantListe.isSelected){
         restaurantListe.isSelected = false;
       }
     })
   }
 
-  public selectRestaurant(id:number): void {
+  public onClickCloseStreetView(): void {
+    this.map.getStreetView().setVisible(false);
+    $("#btn_close_street_view").addClass("d-none");
+    const elementHTMLPano = $("#pano");
+    elementHTMLPano.removeClass("h-50").addClass("d-none");
+    this.unselectRestaurant(this.lastRestaurantSelected);
+    this.restaurants.map(restaurantListe => restaurantListe.isSelected = false);
+    //TODO changer cette méthode bourrin
+  }
+
+  public unselectRestaurant(selector:string): void {
+    const restaurantItemList = $("#"+selector);
+    if(restaurantItemList.hasClass("active")){
+      restaurantItemList.removeClass("active").addClass("bg-light");
+    }
+  }
+
+
+  public selectRestaurant(id:string): void {
     if(this.lastRestaurantSelected !== null) {
       $("#"+this.lastRestaurantSelected).removeClass("active").addClass("bg-light");
     }
@@ -90,6 +117,9 @@ export class MapViewComponent implements OnInit {
     this.lastRestaurantSelected = "restaurant_"+id;
     if(restaurantItemList.hasClass("bg-light")){
       restaurantItemList.removeClass("bg-light").addClass("active");
+    }
+    if(screen.width > 992) {
+      window.location.hash ="#restaurant_"+id;
     }
   }
 
