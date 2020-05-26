@@ -18,13 +18,31 @@
     </div>
 
   </div>
-  <div class="d-sm-block d-md-block d-lg-none d-xl-none col-2 mr-auto ml-auto text-center rounded shadow-lg">
-    <h1 class=" bg-warning">OU</h1>
-  </div>
   <div id="block_choice_adresse" class="col-12 col-sm-12 col-lg-5 col-md-12 col-xl-5 block_choice rounded p-2 align-self-center">
     <h4 class="bg-info rounded text-center p-2 mr-auto ml-auto w-75">Une adresse de votre choix :</h4>
     <form class="form-inline p-2 justify-content-center" [formGroup]="adressSearch">
         <app-auto-complete></app-auto-complete>
     </form>
+  </div>
+</div>
+<div id="block_aide" class="list-group mt-2">
+  <div class="list-group-item bg-light text-info text-center">
+    <fa-icon [icon]="iconHelp" size="2x"></fa-icon><span class="float-right btn btn-danger" (click)="onCloseHelp()">×</span>
+    <h3 class="text-uppercase">Aide</h3>
+  </div>
+  <div class="list-group-item bg-info text-white">
+    <fa-icon [icon]="iconPosition" size="2x"></fa-icon>
+    <span class="text-uppercase font-weight-bold"> Choisir votre position de référence</span>
+    <p class="aide_fonctionnalite" class="font-italic mr-auto ml-auto"> Vous avez le choix entre votre position géographique actuelle ou une adresse de votre choix. <br>
+      Si vous choisissez votre position géographique actuelle veuillez cliquer sur le bouton <span class="btn btn-success">OK</span> qui est situé en dessous de la map.
+      <br>
+      Si vous choisissez une adresse de votre choix veuillez écrire l'adresse dans le champ prévu à cet effet et nous vous proposerons sous forme de liste des adresses correspondantes répertoriées par Google Maps. Il suffira de cliquer sur l'adresse désiré.
+      <br>
+      La position choisit nous permettra de vous proposer les restaurants répertoriés par Google Places à proximité de celle-ci.
+      <br>
+      Après ce clic (bouton ou adresse) vous serez automatiquement redirigé vers une nouvelle page.
+      <br>
+      <b class="text-warning">Note importante : La géolocalisation sur smartphone et tablette est en cours de développement sur cette application. Nous ne pourrons donc pas encore vous géolocaliser.</b>
+    </p>
   </div>
 </div>

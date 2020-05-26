@@ -132,7 +132,6 @@ export class MapService {
 
 
   public showVisibleRestaurants(restaurants: Restaurant[], bounds: google.maps.LatLngBounds): void {
-    console.log("Methode showVisibleRestaurants()");
     let count = 0;
     restaurants.map(restaurant => {
       const elementRestaurantListe = $("#restaurant_"+restaurant.id);

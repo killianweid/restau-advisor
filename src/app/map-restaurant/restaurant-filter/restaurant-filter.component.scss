@@ -2,3 +2,18 @@ input{
   width: 50px !important;
   height: 19px !important;
 }
+
+@media screen and (max-width: 580px) {
+  label {
+    display: none;
+  }
+
+  .form-group {
+    margin-bottom: 0 !important;
+  }
+
+  input{
+    height: 30px !important;
+  }
+}
+

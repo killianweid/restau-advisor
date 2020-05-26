@@ -4,6 +4,11 @@
   }
 }
 
-#aide_fonctionnalite {
+.aide_fonctionnalite {
   width: fit-content !important;
+}
+
+#block_map_restaurants {
+  overflow: auto;
+  height: 900px;
 }

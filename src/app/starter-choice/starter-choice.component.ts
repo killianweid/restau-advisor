@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {MapService} from "../services/map.service";
+import {faCrosshairs, faHandsHelping} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-starter-choice',
@@ -12,6 +13,9 @@ export class StarterChoiceComponent implements OnInit {
 
   actualPositionLat: number;
   actualPositionLng: number;
+
+  iconHelp= faHandsHelping;
+  iconPosition= faCrosshairs;
 
   // google maps zoom level
   initialZoom: number = 17;
@@ -54,7 +58,10 @@ export class StarterChoiceComponent implements OnInit {
     this.router.navigate(['carte-et-restaurants']).then(()=>{
       $("#block_map_restaurants").removeClass("d-none");
     });
+  }
 
+  public onCloseHelp(): void{
+    $("#block_aide").addClass("d-none");
   }
 
 }
