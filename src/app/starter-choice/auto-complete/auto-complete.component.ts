@@ -14,9 +14,6 @@ export class AutoCompleteComponent implements OnInit {
   @ViewChild('addresstext') addresstext: any;
 
   autocompleteInput: string;
-  @Output() placeEntered: boolean = false;
-  positionPlaceSelected: google.maps.LatLng;
-
 
   constructor( private mapService: MapService,
                private router: Router) {
@@ -37,30 +34,16 @@ export class AutoCompleteComponent implements OnInit {
       });
     google.maps.event.addListener(autocomplete, 'place_changed', () => {
       const place = autocomplete.getPlace();
-      this.positionPlaceSelected = place.geometry.location;
-      this.placeEntered = true;
-      //TODO probleme ici il faut cliquer sur l'input pour que le disabled soit enlevé alors qu'il devrait etre enleve directement au clic sur une place
       this.invokeEvent(place);
+      this.mapService.referencePosition = place.geometry.location;
+      this.router.navigate(['carte-et-restaurants']).then(()=>{
+        $("#block_map_restaurants").removeClass("d-none");
+      });
     });
   }
 
   invokeEvent(place: Object): void {
     this.setAddress.emit(place);
   }
-
-  public onClickAdress(): void {
-    this.mapService.referencePosition = this.positionPlaceSelected;
-    this.router.navigate(['carte-et-restaurants']).then(()=>{
-      $("#block_map_restaurants").removeClass("d-none");
-    });
-  }
-
-  public onInputAddress(): void {
-      if(this.placeEntered){
-        this.placeEntered = false;
-        this.positionPlaceSelected = null;
-      }
-  }
-
 
 }

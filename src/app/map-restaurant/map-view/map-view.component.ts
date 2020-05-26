@@ -6,6 +6,7 @@ import {AgmInfoWindow} from "@agm/core";
 import {RestaurantsService} from "../../services/restaurants.service";
 import {Rating} from "../../models/rating.model";
 import {MapService} from "../../services/map.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-map-view',
@@ -34,11 +35,16 @@ export class MapViewComponent implements OnInit {
   @Input() restaurants: Restaurant[];
 
   constructor(private restaurantsService: RestaurantsService,
-              private mapService: MapService) { }
+              private mapService: MapService,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.initialPositionLat = this.mapService.referencePosition.lat();
-    this.initialPositionLng = this.mapService.referencePosition.lng();
+    if(this.mapService.referencePosition === null) {
+      this.router.navigate(['starter-position-choice']);
+    }else{
+      this.initialPositionLat = this.mapService.referencePosition.lat();
+      this.initialPositionLng = this.mapService.referencePosition.lng();
+    }
   }
 
   public onMapReady(map:google.maps.Map): void {
@@ -63,7 +69,6 @@ export class MapViewComponent implements OnInit {
   }
 
   public showStreetView(restaurant: Restaurant): void {
-    //TODO ajouter un bouton fermer la google street view
     const panorama = new google.maps.StreetViewPanorama(
       document.getElementById('pano'), {
         position: new google.maps.LatLng(restaurant.lat,restaurant.long),
@@ -152,8 +157,5 @@ export class MapViewComponent implements OnInit {
     this.markers[0].setMap(null);
     this.markers.pop();
   }
-
-  // TODO  lorsqu'on entrera le nom du restaurant dans le formulaire il sera écrit au fur et à mesure dans le label de ce marker
-  // le marker sera supprimé et on ajoutera le restaurant à sa place (nouveau marker)
 
 }

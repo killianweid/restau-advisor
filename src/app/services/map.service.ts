@@ -3,7 +3,7 @@ import {RestaurantsService} from "./restaurants.service";
 import {Restaurant} from "../models/restaurant.model";
 import {Rating} from "../models/rating.model";
 import $ from "jquery";
-import {findIndexOfRestaurantByGooglePlaceId, findRestaurantById, strRandom} from '../utils';
+import { findIndexOfRestaurantByGooglePlaceId, findRestaurantById, strRandom } from '../utils';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +53,7 @@ export class MapService {
     // récupération du service google places
     const service = new google.maps.places.PlacesService(this.map);
     // utilisation de la méthode nearbySearch qui permet de récupérer les places dans un périmètre spécifié
-    service.nearbySearch(request, (results, status) => {
+    service.nearbySearch(request, (results, status, pageToken) => {
       // si la méthode renvoie des données
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         results.map(result => {
@@ -61,6 +61,18 @@ export class MapService {
             this.addGooglePlacesRestaurantToList(result, service);
           }
         });
+        if (pageToken.hasNextPage) {
+          pageToken.nextPage();
+          service.nearbySearch(request, (secondResults, secondStatus, pageToken) => {
+            if (secondStatus == google.maps.places.PlacesServiceStatus.OK) {
+              secondResults.map(secondResult => {
+                if (!(this.restaurantsService.containsRestaurant(secondResult.place_id))) {
+                  this.addGooglePlacesRestaurantToList(secondResult, service);
+                }
+              });
+            }
+          })
+        }
       }
       callback(this.restaurants, this.map.getBounds());
     });
@@ -87,9 +99,6 @@ export class MapService {
     }
     newRestau.id = test;
     /* Récupération des avis du restaurant actuel */
-    console.log("Restaurant: ",googlePlacesRestaurant);
-    console.log("Place id : "+googlePlacesRestaurant.place_id);
-    console.log("Icone : "+ googlePlacesRestaurant.icon);
     const request2 = {
       placeId: googlePlacesRestaurant.place_id
     }
@@ -104,8 +113,6 @@ export class MapService {
         }
         if (place.photos !== undefined) {
           newRestau.icon = place.photos[0].getUrl({maxWidth: 150, maxHeight: 100});
-        }else{
-          console.log("Pas de photos pour : "+ place.name);
         }
         const index = findIndexOfRestaurantByGooglePlaceId(this.restaurants, place.id);
         if(index !== -1 ) {

@@ -32,22 +32,21 @@ export class RestaurantFormComponent implements OnInit {
   public onSaveRestau(): void {
     const name = this.restauForm.get('name').value;
     const newRestaurant = new Restaurant(name,this.coords.lat,this.coords.lng);
-    //name.strRandom();
-    let test = strRandom({
+    let idAleatoire = strRandom({
       includeUpperCase: false,
       includeNumbers: true,
       length: 20,
       startsWithLowerCase: true
     });
-    while(findRestaurantById(this.restaurants, test) !== -1){
-      test = strRandom({
+    while(findRestaurantById(this.restaurants, idAleatoire) !== -1){
+      idAleatoire = strRandom({
         includeUpperCase: false,
         includeNumbers: true,
         length: 20,
         startsWithLowerCase: true
       });
     }
-    newRestaurant.id = test;
+    newRestaurant.id = idAleatoire;
     this.restaurantsService.addNewRestaurant(newRestaurant);
     this.creationRestauInPrgs.emit(false);
 
