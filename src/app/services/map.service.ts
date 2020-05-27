@@ -3,7 +3,7 @@ import {RestaurantsService} from "./restaurants.service";
 import {Restaurant} from "../models/restaurant.model";
 import {Rating} from "../models/rating.model";
 import $ from "jquery";
-import { findIndexOfRestaurantByGooglePlaceId, findRestaurantById, strRandom } from '../utils';
+import {findIndexOfRestaurantByGooglePlaceId, findRestaurantById, showTextNbRestaurants, strRandom} from '../utils';
 
 @Injectable({
   providedIn: 'root'
@@ -147,26 +147,6 @@ export class MapService {
         }
       }
     });
-    if(count > 1 && count < 10) {
-      if($("#nb_restaurants").hasClass("bg-warning")){
-        $("#nb_restaurants").removeClass("bg-warning").addClass("bg-success");
-      }
-      $("#nb_restaurants").html("<span class=\"bg-danger rounded-circle p-1 pl-2 pr-2 text-white\">"+count+"</span> restaurants correspondant à vos recherches sont actuellement visible sur la carte");
-    } else if(count > 10) {
-      if($("#nb_restaurants").hasClass("bg-warning")){
-        $("#nb_restaurants").removeClass("bg-warning").addClass("bg-success");
-      }
-      $("#nb_restaurants").html("<span class=\"bg-danger rounded-circle pl-2 pr-2 pt-1 pb-1 text-white\">"+count+"</span> restaurants correspondant à vos recherches sont actuellement visible sur la carte");
-    } else if (count === 1){
-      if($("#nb_restaurants").hasClass("bg-warning")){
-        $("#nb_restaurants").removeClass("bg-warning").addClass("bg-success");
-      }
-      $("#nb_restaurants").html("<span class=\"bg-danger rounded-circle pl-2 pr-2 pt-1 pb-1 text-white\">"+count+"</span> restaurant correspondant à vos recherches sont actuellement visible sur la carte");
-    }else if(count === 0){
-      if($("#nb_restaurants").hasClass("bg-success")){
-        $("#nb_restaurants").removeClass("bg-success").addClass("bg-warning");
-      }
-      $("#nb_restaurants").html("<span class=\"bg-danger rounded p-1 text-white\">Aucun restaurant </span>correspondant à vos recherches sont actuellement visible sur la carte");
-    }
+    showTextNbRestaurants(count);
   }
 }

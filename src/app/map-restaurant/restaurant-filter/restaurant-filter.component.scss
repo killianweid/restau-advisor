@@ -1,6 +1,6 @@
-input{
-  width: 50px !important;
-  height: 19px !important;
+select{
+  width: 56px !important;
+  height: 30px !important;
 }
 
 @media screen and (max-width: 580px) {
@@ -10,10 +10,6 @@ input{
 
   .form-group {
     margin-bottom: 0 !important;
-  }
-
-  input{
-    height: 30px !important;
   }
 }
 

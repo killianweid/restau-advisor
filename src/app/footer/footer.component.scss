@@ -1,0 +1,10 @@
+@media screen and (max-width: 770px) {
+  footer {
+    text-align-last: center;
+  }
+
+  footer .row div {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+  }
+}

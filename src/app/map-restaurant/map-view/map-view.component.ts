@@ -108,20 +108,20 @@ export class MapViewComponent implements OnInit {
 
   public unselectRestaurant(selector:string): void {
     const restaurantItemList = $("#"+selector);
-    if(restaurantItemList.hasClass("active")){
-      restaurantItemList.removeClass("active").addClass("bg-light");
+    if(restaurantItemList.hasClass("bg-info")){
+      restaurantItemList.removeClass("bg-info text-white").addClass("bg-light text-info");
     }
   }
 
 
   public selectRestaurant(id:string): void {
     if(this.lastRestaurantSelected !== null) {
-      $("#"+this.lastRestaurantSelected).removeClass("active").addClass("bg-light");
+      $("#"+this.lastRestaurantSelected).removeClass("bg-info text-white").addClass("bg-light");
     }
     const restaurantItemList = $("#restaurant_"+id);
     this.lastRestaurantSelected = "restaurant_"+id;
     if(restaurantItemList.hasClass("bg-light")){
-      restaurantItemList.removeClass("bg-light").addClass("active");
+      restaurantItemList.removeClass("bg-light text-info").addClass("bg-info text-white");
     }
     if(screen.width > 992) {
       window.location.hash ="#restaurant_"+id;

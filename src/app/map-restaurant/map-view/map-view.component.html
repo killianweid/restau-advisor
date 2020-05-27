@@ -17,7 +17,7 @@
          (mapReady)="onMapReady($event);"
          (mapClick)="closeWindow()"
          (mapRightClick)="showOptions($event)">
-  <agm-marker [latitude]="initialPositionLat" [longitude]="initialPositionLng" [label]="{color:'blue',text:'Votre position'}" >
+  <agm-marker [latitude]="initialPositionLat" [longitude]="initialPositionLng" iconUrl="../../assets/images/favicon.ico" [label]="{color:'blue',text:'Votre position',fontWeight:'bold'}" >
   </agm-marker>
 
   <agm-marker
@@ -26,6 +26,7 @@
     [longitude]="r.long"
     [label]="r.restaurantName"
     (markerClick)="selectRestaurant(r.id);showStreetView(r);"
+    iconUrl="../../assets/images/icone_restaurant.png"
     id="marker{{i}}">
   </agm-marker>
 

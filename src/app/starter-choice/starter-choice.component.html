@@ -1,15 +1,15 @@
-<div class="bg-light rounded text-center font-weight-bold w-50 p-2 m-auto">
-  <h3 class="mb-0"> Choisissez votre position de référence :</h3>
+<div class="bg-info text-white rounded text-center font-weight-bold w-50 p-2 m-auto">
+  <h3 class="mb-0"> Choisissez votre position de référence <fa-icon [icon]="iconPosition"></fa-icon></h3>
 </div>
 
 <div id="block_choices" class="row mt-2">
   <div id="block_map_choice" class="col-12 col-sm-12 col-lg-6 col-md-12 col-xl-6 block_choice rounded p-2">
-    <h4 class="bg-info rounded text-center p-2 w-75 mr-auto ml-auto">Votre position géographique actuelle : </h4>
+    <h4 class="bg-light text-info font-weight-bold rounded text-center p-2 w-75 mr-auto ml-auto">Votre position géographique actuelle <fa-icon [icon]="iconMarker"> </fa-icon></h4>
     <agm-map [latitude]="actualPositionLat"
              [longitude]="actualPositionLng"
              [zoom]="initialZoom"
              (mapReady)="onMapReady($event)">
-      <agm-marker [latitude]="actualPositionLat" [longitude]="actualPositionLng" [label]="{color:'blue',text:'Votre position'}" >
+      <agm-marker [latitude]="actualPositionLat" [longitude]="actualPositionLng" iconUrl="../../assets/images/favicon.ico" [label]="{color:'blue',text:'Votre position',fontWeight:'bold'}" >
       </agm-marker>
 
     </agm-map>
@@ -19,7 +19,7 @@
 
   </div>
   <div id="block_choice_adresse" class="col-12 col-sm-12 col-lg-5 col-md-12 col-xl-5 block_choice rounded p-2 align-self-center">
-    <h4 class="bg-info rounded text-center p-2 mr-auto ml-auto w-75">Une adresse de votre choix :</h4>
+    <h4 class="bg-light text-info rounded text-center p-2 mr-auto ml-auto w-75">Une adresse de votre choix <fa-icon [icon]="iconAdress"></fa-icon> </h4>
     <form class="form-inline p-2 justify-content-center" [formGroup]="adressSearch">
         <app-auto-complete></app-auto-complete>
     </form>

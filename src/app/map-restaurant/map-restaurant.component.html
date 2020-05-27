@@ -12,7 +12,7 @@
         <h3 class="text-uppercase">Aide</h3>
       </div>
       <div class="list-group-item bg-info text-white">
-        <fa-icon [icon]="iconAdd" size="2x"></fa-icon>
+        <fa-icon [icon]="iconAddRond" size="2x"></fa-icon>
         <fa-icon [icon]="iconRestaurant" size="2x"></fa-icon>
         <span class="text-uppercase font-weight-bold"> Ajouter un restaurant</span>
         <p class="aide_fonctionnalite" class="font-italic mr-auto ml-auto"> Clic droit à l'endroit voulu sur la carte. Puis complétez le formulaire affiché en haut à gauche de la map.</p>
@@ -20,18 +20,21 @@
       <div class="list-group-item bg-light text-info">
         <fa-icon [icon]="iconAddComment" size="2x"></fa-icon>
         <span class="text-uppercase font-weight-bold"> Ajouter un avis à un restaurant</span>
-        <p class="aide_fonctionnalite" class="font-italic mr-auto ml-auto"> Clic sur le bouton <span class="btn btn-info">Ajouter un avis</span> du restaurant désiré dans la liste des restaurants.</p>
+        <p class="aide_fonctionnalite" class="font-italic mr-auto ml-auto"> Clic sur le bouton <span class="btn btn-success">Ajouter un avis</span> du restaurant désiré dans la liste des restaurants.</p>
       </div>
       <div class="list-group-item bg-info text-white">
         <fa-icon [icon]="iconStreetView" size="2x"></fa-icon>
         <span class="text-uppercase font-weight-bold"> Voir la Google Street View</span>
-        <p class="aide_fonctionnalite" class="font-italic mr-auto ml-auto"> Clic gauche sur le Marker 📍 du restaurant désiré.</p>
+        <p class="aide_fonctionnalite" class="font-italic mr-auto ml-auto"> Clic gauche sur le Marker <img src="assets/images/icone_restaurant.png" alt="Icone restaurant"/> du restaurant désiré.</p>
       </div>
       <div class="list-group-item bg-light text-info">
         <fa-icon [icon]="iconFilter" size="2x"></fa-icon>
         <fa-icon [icon]="iconEtoile" size="2x"></fa-icon>
         <span class="text-uppercase font-weight-bold"> Filtrer les restaurants </span>
-        <p class="aide_fonctionnalite" class=" font-italic mr-auto ml-auto"> Renseignez les bornes dans les cases prévues à cet effet au dessus de la map.</p>
+        <p class="aide_fonctionnalite" class=" font-italic mr-auto ml-auto"> Renseignez les bornes dans les cases prévues à cet effet au dessus de la map.
+        <br> Exemple : Pour afficher seulement les restaurants qui ont entre 3 et 5 étoiles de note moyenne entrez le nombre 3 dans la case de gauche et le nombre 5 dans la case de droite.
+          <br> Note importante : Seuls les restaurants affichés sur la map et dans la liste seront filtrés.
+        </p>
       </div>
       <div class="list-group-item bg-info text-white">
         <fa-icon [icon]="icondDirection" size="2x"></fa-icon>

@@ -1,5 +1,6 @@
 import {Rating} from "./models/rating.model";
 import {Restaurant} from "./models/restaurant.model";
+import $ from "jquery";
 
 export function averageNbOfStars(ratings:Rating[]) {
     return Number(
@@ -8,6 +9,31 @@ export function averageNbOfStars(ratings:Rating[]) {
         /ratings.length
       )
         .toFixed(1));
+}
+
+export function showTextNbRestaurants(numberOfRestaurants:number) {
+  const elementHTMLnbRestau = $("#nb_restaurants");
+  if(numberOfRestaurants > 1 && numberOfRestaurants < 10) {
+    if(elementHTMLnbRestau.hasClass("bg-warning")){
+      elementHTMLnbRestau.removeClass("bg-warning").addClass("bg-success");
+    }
+    elementHTMLnbRestau.html("<span class=\"bg-danger rounded-circle p-1 pl-2 pr-2 text-white\">"+numberOfRestaurants+"</span> restaurants correspondant à vos recherches sont actuellement visible sur la carte");
+  } else if(numberOfRestaurants > 10) {
+    if(elementHTMLnbRestau.hasClass("bg-warning")){
+      elementHTMLnbRestau.removeClass("bg-warning").addClass("bg-success");
+    }
+    elementHTMLnbRestau.html("<span class=\"bg-danger rounded-circle pl-2 pr-2 pt-1 pb-1 text-white\">"+numberOfRestaurants+"</span> restaurants correspondant à vos recherches sont actuellement visible sur la carte");
+  } else if (numberOfRestaurants === 1){
+    if(elementHTMLnbRestau.hasClass("bg-warning")){
+      elementHTMLnbRestau.removeClass("bg-warning").addClass("bg-success");
+    }
+    elementHTMLnbRestau.html("<span class=\"bg-danger rounded-circle pl-2 pr-2 pt-1 pb-1 text-white\">"+numberOfRestaurants+"</span> restaurant correspondant à vos recherches sont actuellement visible sur la carte");
+  }else if(numberOfRestaurants === 0){
+    if(elementHTMLnbRestau.hasClass("bg-success")){
+      elementHTMLnbRestau.removeClass("bg-success").addClass("bg-warning");
+    }
+    elementHTMLnbRestau.html("<span class=\"bg-danger rounded p-1 text-white\">Aucun restaurant </span>correspondant à vos recherches sont actuellement visible sur la carte");
+  }
 }
 
 export function strRandom(o) {

@@ -1,4 +1,4 @@
-<div id="restaurant_{{restaurant.id}}" (click)="onClickRestaurant()" class="list-group-item list-group-item-action flex-column align-items-start bg-light">
+<div id="restaurant_{{restaurant.id}}" (click)="onClickRestaurant()" class="list-group-item list-group-item-action flex-column align-items-start bg-light text-info">
   <div class="d-flex w-100 justify-content-between">
     <img *ngIf="restaurant.icon !== null" src="{{restaurant.icon}}" alt="Photo {{restaurant.restaurantName}}"/>
     <img *ngIf="restaurant.icon === null" width="80" height="60" src="../assets/images/photo_restaurant_default.jpg" alt="Photo {{restaurant.restaurantName}}"/>
@@ -12,10 +12,11 @@
   <p>
     {{ restaurant.address }}
   </p>
-  <button *ngIf="!formRatingIsShow" class="btn btn-info" (click)="onClickAddRating()"> Ajouter un avis</button>
+  <button *ngIf="!formRatingIsShow" class="btn btn-success" id="btn_add_rating" (click)="onClickAddRating()"><fa-icon [icon]="iconAdd"></fa-icon> Ajouter un avis</button>
   <fa-icon *ngIf="formRatingIsShow" [icon]="faTimesCircle" (click)="onClickAddRating()" size="2x" class="text-danger float-right" ></fa-icon>
   <small *ngIf="!restaurant.isSelected && !formRatingIsShow && restaurant.ratings">
     Ou cliquez pour voir les avis
+    <fa-icon [icon]="iconFlecheBas"></fa-icon>
   </small>
   <small *ngIf="!restaurant.isSelected && !formRatingIsShow && !restaurant.ratings ">
     Aucun avis pour le moment

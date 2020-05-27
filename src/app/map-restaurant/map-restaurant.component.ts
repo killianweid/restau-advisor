@@ -2,7 +2,17 @@ import {Component, OnDestroy, OnInit,} from '@angular/core';
 import {Restaurant} from "../models/restaurant.model";
 import {Subscription} from "rxjs";
 import {RestaurantsService} from "../services/restaurants.service";
-import {faUtensils, faPlus, faFilter, faStreetView, faCommentMedical, faArrowsAlt, faStar, faHandsHelping } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUtensils,
+  faPlus,
+  faFilter,
+  faStreetView,
+  faCommentMedical,
+  faArrowsAlt,
+  faStar,
+  faHandsHelping,
+  faPlusCircle
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-map-restaurant',
@@ -16,6 +26,7 @@ export class MapRestaurantComponent implements OnInit,OnDestroy{
   restaurantsSubscription: Subscription;
   iconRestaurant = faUtensils;
   iconAdd = faPlus;
+  iconAddRond = faPlusCircle;
   iconFilter = faFilter;
   iconStreetView = faStreetView;
   iconAddComment = faCommentMedical;

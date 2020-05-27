@@ -2,12 +2,13 @@ agm-map {
   height: 70%;
 }
 
-#block_choices {
-  height:600px;
+.agm-map-container-inner{
+  margin-left:auto !important;
+  margin-right: auto !important;
 }
 
-.block_choice {
-  background-color: rgba(255,255,255,0.6);
+#block_choices {
+  height:420px;
 }
 
 #block_choice_adresse {
@@ -24,6 +25,16 @@ agm-map {
 
   #block_choice_adresse {
     margin-left: 0 !important;
+  }
+}
+
+@media screen and (max-width: 575px){
+  #block_choice_adresse {
+    margin-top: 15%;
+  }
+
+  #block_aide {
+    margin-top: 15% !important;
   }
 }
 

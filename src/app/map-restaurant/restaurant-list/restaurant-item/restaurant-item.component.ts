@@ -1,6 +1,6 @@
 import {Component, Input } from '@angular/core';
 import {Restaurant} from "../../../models/restaurant.model";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import {faArrowDown, faPlus, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
@@ -14,6 +14,8 @@ export class RestaurantItemComponent   {
   formRatingIsShow: boolean = false;
   faTimesCircle = faTimesCircle;
   faStar = faStar;
+  iconAdd = faPlus;
+  iconFlecheBas = faArrowDown;
 
   public onClickRestaurant(): void {
     this.ratingsAreShown = !this.ratingsAreShown;

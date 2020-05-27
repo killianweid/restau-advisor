@@ -19,6 +19,7 @@ import { RestaurantNewRatingComponent } from './map-restaurant/restaurant-list/r
 import { RestaurantFormComponent } from './map-restaurant/restaurant-list/restaurant-form/restaurant-form.component';
 import { StarterChoiceComponent } from './starter-choice/starter-choice.component';
 import { AutoCompleteComponent } from './starter-choice/auto-complete/auto-complete.component';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
   { path: 'starter-position-choice', component: StarterChoiceComponent },
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
     RestaurantFormComponent,
     StarterChoiceComponent,
     AutoCompleteComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

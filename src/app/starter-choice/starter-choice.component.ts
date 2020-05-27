@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {MapService} from "../services/map.service";
-import {faCrosshairs, faHandsHelping} from "@fortawesome/free-solid-svg-icons";
+import {faCrosshairs, faHandsHelping, faMapMarkedAlt, faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-starter-choice',
@@ -16,6 +16,8 @@ export class StarterChoiceComponent implements OnInit {
 
   iconHelp= faHandsHelping;
   iconPosition= faCrosshairs;
+  iconMarker = faMapMarkerAlt;
+  iconAdress = faMapMarkedAlt;
 
   // google maps zoom level
   initialZoom: number = 17;
