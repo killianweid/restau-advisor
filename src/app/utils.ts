@@ -2,7 +2,7 @@ import {Rating} from "./models/rating.model";
 import {Restaurant} from "./models/restaurant.model";
 import $ from "jquery";
 
-export function averageNbOfStars(ratings:Rating[]) {
+export function averageNbOfStars(ratings:Rating[]): number {
     return Number(
       (ratings.reduce(
         (sum,rating) => sum+rating.stars,0)
@@ -11,7 +11,7 @@ export function averageNbOfStars(ratings:Rating[]) {
         .toFixed(1));
 }
 
-export function showTextNbRestaurants(numberOfRestaurants:number) {
+export function showTextNbRestaurants(numberOfRestaurants:number): void {
   const elementHTMLnbRestau = $("#nb_restaurants");
   if(numberOfRestaurants > 1 && numberOfRestaurants < 10) {
     if(elementHTMLnbRestau.hasClass("bg-warning")){
@@ -36,7 +36,7 @@ export function showTextNbRestaurants(numberOfRestaurants:number) {
   }
 }
 
-export function strRandom(o) {
+export function strRandom(o): string {
   let a = 10,
     b = 'abcdefghijklmnopqrstuvwxyz',
     c = '',
@@ -63,7 +63,7 @@ export function strRandom(o) {
   return c;
 }
 
-export function findRestaurantById(restaurants: Restaurant[], id: string){
+export function findRestaurantById(restaurants: Restaurant[], id: string) {
     restaurants.map(restaurant => {
       if(restaurant.id === id) {
         return restaurant;
@@ -72,7 +72,7 @@ export function findRestaurantById(restaurants: Restaurant[], id: string){
     return -1;
 }
 
-export function findIndexOfRestaurantByGooglePlaceId(restaurants: Restaurant[], googlePlaceId: string){
+export function findIndexOfRestaurantByGooglePlaceId(restaurants: Restaurant[], googlePlaceId: string): number{
   let index = -1;
   for (let i = 0; i < restaurants.length; i++) {
     if(restaurants[i].placeId === googlePlaceId) {

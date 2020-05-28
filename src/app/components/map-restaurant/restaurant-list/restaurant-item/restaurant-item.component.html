@@ -1,0 +1,44 @@
+<div id="restaurant_{{restaurant.id}}" #restaurant{{restaurant.id}} (click)="onClickRestaurant()" class="list-group-item list-group-item-action flex-column align-items-start"
+     [ngClass]="{'bg-light text-info': !restaurant.isSelected,'bg-info text-white': restaurant.isSelected}">
+  <div class="d-flex w-100 justify-content-between">
+    <img *ngIf="restaurant.icon !== null" src="{{restaurant.icon}}" alt="Photo {{restaurant.restaurantName}}"/>
+    <img *ngIf="restaurant.icon === null" width="80" height="60" src="../assets/images/photo_restaurant_default.jpg" alt="Photo {{restaurant.restaurantName}}"/>
+    <h5 class="mb-1">
+      {{ restaurant.restaurantName }}
+    </h5>
+    <small>
+      Note : {{ restaurant.averageRating }}/5
+    </small>
+  </div>
+  <p>
+    {{ restaurant.address }}
+  </p>
+  <button *ngIf="!formRatingIsShow" class="btn btn-success" id="btn_add_rating" (click)="onClickAddRating()"><fa-icon [icon]="iconAdd"></fa-icon> Ajouter un avis</button>
+  <fa-icon *ngIf="formRatingIsShow" [icon]="faTimesCircle" (click)="onClickAddRating()" size="2x" class="text-danger float-right" ></fa-icon>
+  <small *ngIf="!restaurant.isSelected && !formRatingIsShow && restaurant.ratings">
+    Ou cliquez pour voir les avis
+    <fa-icon [icon]="iconFlecheBas"></fa-icon>
+  </small>
+  <small *ngIf="!restaurant.isSelected && !formRatingIsShow && !restaurant.ratings ">
+    Aucun avis pour le moment
+  </small>
+  <app-restaurant-new-rating *ngIf="formRatingIsShow" [restaurant]="restaurant" [formRatingIsShow]="formRatingIsShow" (isCall)="onClickAddRating()"></app-restaurant-new-rating>
+  <div *ngIf="restaurant.isSelected && !formRatingIsShow && restaurant.ratings ">
+    <h5>
+      {{ restaurant.ratings.length }} avis :
+    </h5>
+    <div class="overflow-auto ratings-list">
+      <div *ngFor="let avis of restaurant.ratings" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">
+            {{ avis.stars }}<fa-icon [icon]="faStar" size="xs"></fa-icon>
+          </h5>
+        </div>
+        <p>
+          {{ avis.comment }}
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>

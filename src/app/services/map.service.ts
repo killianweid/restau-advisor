@@ -1,22 +1,24 @@
-import { Injectable } from '@angular/core';
+import {ElementRef, Injectable} from '@angular/core';
 import {RestaurantsService} from "./restaurants.service";
 import {Restaurant} from "../models/restaurant.model";
 import {Rating} from "../models/rating.model";
 import $ from "jquery";
 import {findIndexOfRestaurantByGooglePlaceId, findRestaurantById, showTextNbRestaurants, strRandom} from '../utils';
+import {LoadingScreenService} from "./loading-screen.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
-  map: google.maps.Map;
-  referencePosition: google.maps.LatLng = null;
-  restaurants: Restaurant[];
+  private map: google.maps.Map;
+  public referencePosition: google.maps.LatLng = null;
+  private restaurants: Restaurant[];
 
-  constructor(private restaurantsService: RestaurantsService) {
+  constructor(private restaurantsService: RestaurantsService,
+              private loadingScreenService: LoadingScreenService) {
   }
 
-  public initMapAndGooglePlacesRestaurants(map: google.maps.Map, restaurants: Restaurant[]) {
+  public initMapAndGooglePlacesRestaurants(map: google.maps.Map, restaurants: Restaurant[]): void {
     this.map = map;
     this.restaurants = restaurants;
     google.maps.event.addListener(this.map, 'idle', () => {
@@ -56,20 +58,28 @@ export class MapService {
     service.nearbySearch(request, (results, status, pageToken) => {
       // si la méthode renvoie des données
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        results.map(result => {
-          if (!(this.restaurantsService.containsRestaurant(result.place_id))) {
-            this.addGooglePlacesRestaurantToList(result, service);
+        this.loadingScreenService.startLoading();
+        for (let i = 0; i < results.length; i++) {
+          if (!(this.restaurantsService.containsRestaurant(results[i].place_id))) {
+            this.addGooglePlacesRestaurantToList(results[i], service);
+            if(i === results.length-1 && !pageToken.hasNextPage){
+              this.loadingScreenService.stopLoading();
+            }
           }
-        });
+        }
+        /* s'il y a une autre page de resultats (soit plus de 20 resultats) */
         if (pageToken.hasNextPage) {
           pageToken.nextPage();
           service.nearbySearch(request, (secondResults, secondStatus, pageToken) => {
             if (secondStatus == google.maps.places.PlacesServiceStatus.OK) {
-              secondResults.map(secondResult => {
-                if (!(this.restaurantsService.containsRestaurant(secondResult.place_id))) {
-                  this.addGooglePlacesRestaurantToList(secondResult, service);
+              for (let j = 0; j < secondResults.length; j++) {
+                if (!(this.restaurantsService.containsRestaurant(secondResults[j].place_id))) {
+                  this.addGooglePlacesRestaurantToList(secondResults[j], service);
+                  if(j === secondResults.length-1){
+                    this.loadingScreenService.stopLoading();
+                  }
                 }
-              });
+              }
             }
           })
         }
@@ -78,7 +88,7 @@ export class MapService {
     });
   }
 
-  public addGooglePlacesRestaurantToList(googlePlacesRestaurant, placesService) {
+  public addGooglePlacesRestaurantToList(googlePlacesRestaurant, placesService): void {
     const newRestau = new Restaurant( googlePlacesRestaurant.name, googlePlacesRestaurant.geometry.location.lat(), googlePlacesRestaurant.geometry.location.lng());
     newRestau.averageRating = googlePlacesRestaurant.rating;
     newRestau.address = googlePlacesRestaurant.vicinity;
@@ -130,12 +140,13 @@ export class MapService {
     });
   }
 
-
+  //TODO supprimer cette methode apres la soutenance (cette methode sert seulement à cacher les restaurants du fichier JSON dans la liste lorsqu'ils ne sont pas visible)
+  // garder juste le showTextNbRestaurants
   public showVisibleRestaurants(restaurants: Restaurant[], bounds: google.maps.LatLngBounds): void {
     let count = 0;
-    restaurants.map(restaurant => {
-      const elementRestaurantListe = $("#restaurant_"+restaurant.id);
-      const latlng = new google.maps.LatLng(restaurant.lat,restaurant.long);
+    for (let i = 0; i < 6; i++) {
+      const elementRestaurantListe = $("#restaurant_"+restaurants[i].id);
+      const latlng = new google.maps.LatLng(restaurants[i].lat,restaurants[i].long);
       if (bounds.contains(latlng) === true) {
         if(elementRestaurantListe.hasClass("d-none")){
           elementRestaurantListe.removeClass("d-none");
@@ -146,7 +157,7 @@ export class MapService {
           elementRestaurantListe.addClass("d-none");
         }
       }
-    });
-    showTextNbRestaurants(count);
+    }
+    showTextNbRestaurants((restaurants.length-6)+count);
   }
 }
