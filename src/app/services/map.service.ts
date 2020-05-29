@@ -143,21 +143,6 @@ export class MapService {
   //TODO supprimer cette methode apres la soutenance (cette methode sert seulement à cacher les restaurants du fichier JSON dans la liste lorsqu'ils ne sont pas visible)
   // garder juste le showTextNbRestaurants
   public showVisibleRestaurants(restaurants: Restaurant[], bounds: google.maps.LatLngBounds): void {
-    let count = 0;
-    for (let i = 0; i < 6; i++) {
-      const elementRestaurantListe = $("#restaurant_"+restaurants[i].id);
-      const latlng = new google.maps.LatLng(restaurants[i].lat,restaurants[i].long);
-      if (bounds.contains(latlng) === true) {
-        if(elementRestaurantListe.hasClass("d-none")){
-          elementRestaurantListe.removeClass("d-none");
-        }
-        count++;
-      } else {
-        if(!elementRestaurantListe.hasClass("d-none")){
-          elementRestaurantListe.addClass("d-none");
-        }
-      }
-    }
-    showTextNbRestaurants((restaurants.length-6)+count);
+    showTextNbRestaurants((restaurants.length));
   }
 }

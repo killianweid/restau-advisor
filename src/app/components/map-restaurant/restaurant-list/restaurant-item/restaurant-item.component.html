@@ -3,14 +3,22 @@
   <div class="d-flex w-100 justify-content-between">
     <img *ngIf="restaurant.icon !== null" src="{{restaurant.icon}}" alt="Photo {{restaurant.restaurantName}}"/>
     <img *ngIf="restaurant.icon === null" width="80" height="60" src="../assets/images/photo_restaurant_default.jpg" alt="Photo {{restaurant.restaurantName}}"/>
-    <h5 class="mb-1">
-      {{ restaurant.restaurantName }}
-    </h5>
-    <small>
-      Note : {{ restaurant.averageRating }}/5
-    </small>
+    <div class="mb-1 p-2 text-center">
+      <h5>
+        {{ restaurant.restaurantName }}
+      </h5>
+      <p *ngIf="restaurant.isVisibleOnMap" class="font-italic">Visible actuellement sur la map</p>
+    </div>
+    <div class="ml-2 text-right">
+      <fa-icon class="bg-danger text-white icon-visible rounded-circle p-2" *ngIf="restaurant.isVisibleOnMap" [icon]="iconHide" (click)="setVisibleOnMap()"></fa-icon>
+      <fa-icon class="bg-success text-white icon-visible rounded-circle p-2" *ngIf="!restaurant.isVisibleOnMap" [icon]="iconShow" (click)="setVisibleOnMap()"></fa-icon>
+      <br>
+      <small>
+        Note : {{ restaurant.averageRating }}/5
+      </small>
+    </div>
   </div>
-  <p>
+  <p class="font-italic">
     {{ restaurant.address }}
   </p>
   <button *ngIf="!formRatingIsShow" class="btn btn-success" id="btn_add_rating" (click)="onClickAddRating()"><fa-icon [icon]="iconAdd"></fa-icon> Ajouter un avis</button>

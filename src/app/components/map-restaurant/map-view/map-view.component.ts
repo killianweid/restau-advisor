@@ -21,7 +21,7 @@ export class MapViewComponent implements OnInit {
   public initialPositionLng: number;
 
   // google maps zoom level
-  public initialZoom: number = 17;
+  public initialZoom: number = 18;
 
   private infoWindowOpened: AgmInfoWindow = null;
   private previousInfoWindow = null;

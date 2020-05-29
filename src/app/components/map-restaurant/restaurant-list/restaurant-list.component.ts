@@ -9,4 +9,15 @@ import {Restaurant} from "../../../models/restaurant.model";
 export class RestaurantListComponent  {
   @Input() public restaurants: Restaurant[];
 
+  public allRestaurantsVisibleOnMap: boolean = false;
+
+  public setRestaurantsVisible(): void {
+    this.restaurants.map(restaurant => {
+      if(restaurant.isVisibleOnMap !== !this.allRestaurantsVisibleOnMap){
+        restaurant.isVisibleOnMap = !this.allRestaurantsVisibleOnMap;
+      }
+    })
+    this.allRestaurantsVisibleOnMap = !this.allRestaurantsVisibleOnMap;
+  }
+
 }

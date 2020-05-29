@@ -1,6 +1,6 @@
 import {Component, Input } from '@angular/core';
 import {Restaurant} from "../../../../models/restaurant.model";
-import {faArrowDown, faPlus, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
+import {faArrowDown, faEye, faEyeSlash, faPlus, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import {RestaurantsService} from "../../../../services/restaurants.service";
 
@@ -11,12 +11,15 @@ import {RestaurantsService} from "../../../../services/restaurants.service";
 })
 export class RestaurantItemComponent   {
   @Input() public restaurant: Restaurant;
+
   public ratingsAreShown: boolean = false;
   public formRatingIsShow: boolean = false;
   public faTimesCircle = faTimesCircle;
   public faStar = faStar;
   public iconAdd = faPlus;
   public iconFlecheBas = faArrowDown;
+  public iconShow = faEye;
+  public iconHide = faEyeSlash;
 
   constructor(private restaurantsService:RestaurantsService) {
   }
@@ -33,6 +36,10 @@ export class RestaurantItemComponent   {
 
   public onClickAddRating(): void {
     this.formRatingIsShow = !this.formRatingIsShow;
+  }
+
+  public setVisibleOnMap(): void {
+    this.restaurant.isVisibleOnMap = !this.restaurant.isVisibleOnMap;
   }
 
 }

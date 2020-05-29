@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Restaurant } from "../models/restaurant.model";
-import restaurantsJson from 'src/assets/json/restaurants.json';
 import { averageNbOfStars, showTextNbRestaurants } from '../utils';
 
 @Injectable({
@@ -23,7 +22,6 @@ export class RestaurantsService {
   }
 
   public getRestaurants(): void {
-    this.restaurants = restaurantsJson;
     this.restaurants.map(restaurant =>
       restaurant.averageRating = this.getAvgNbOfStars(restaurant)
     );

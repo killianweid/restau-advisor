@@ -8,6 +8,7 @@ export class Restaurant {
   isSelected: boolean = false;
   icon: string = null;
   placeId: string = null;
+  isVisibleOnMap: boolean = false;
   constructor(public restaurantName:string, public lat: number, public long: number) {
   }
 }
