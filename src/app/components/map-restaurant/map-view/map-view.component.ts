@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import $ from "jquery";
 import {Restaurant} from "../../../models/restaurant.model";
 import {GoogleMap} from "@agm/core/services/google-maps-types";
@@ -8,6 +8,7 @@ import {Rating} from "../../../models/rating.model";
 import {MapService} from "../../../services/map.service";
 import {Router} from "@angular/router";
 import {LoadingScreenService} from "../../../services/loading-screen.service";
+import {Subject, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-map-view',
@@ -33,6 +34,9 @@ export class MapViewComponent implements OnInit {
   private map: google.maps.Map;
   public markers: google.maps.Marker[]=[];
 
+  public loadingScreen: boolean;
+  private loadingScreenSubscription: Subscription;
+
   @Input() public restaurants: Restaurant[];
 
   public streetViewShowed: boolean = false;
@@ -43,6 +47,10 @@ export class MapViewComponent implements OnInit {
               private loadingScreenService: LoadingScreenService) { }
 
   public ngOnInit(): void {
+    /*this.loadingScreenSubscription = this.loadingScreenService.loadingStatus.subscribe(
+      (loadingScreen: boolean) => this.loadingScreen = loadingScreen
+    );
+    this.loadingScreenService.emitLoading();*/
     if(this.mapService.referencePosition === null) {
       this.router.navigate(['starter-position-choice']);
     }else{
@@ -147,5 +155,18 @@ export class MapViewComponent implements OnInit {
     this.markers[0].setMap(null);
     this.markers.pop();
   }
+
+  /*public onChargement(): void {
+    if(this.loadingScreen){
+      this.loadingScreenService.stopLoading();
+    }else{
+      this.loadingScreenService.startLoading();
+    }
+
+  }*/
+
+  /*public ngOnDestroy(): void {
+    this.loadingScreenSubscription.unsubscribe();
+  }*/
 
 }

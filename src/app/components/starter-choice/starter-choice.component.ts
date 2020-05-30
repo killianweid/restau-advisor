@@ -40,7 +40,7 @@ export class StarterChoiceComponent implements OnInit {
               private loadingScreenService: LoadingScreenService) { }
 
   public ngOnInit(): void {
-    //this.loadingScreenService.startLoading();
+    this.loadingScreenService.startLoading();
     this.helpIsShowedSubscription = this.helpService.helpStarterIsShowedSubject.subscribe(
       (helpIsShowed: boolean) => this.helpIsShowed = helpIsShowed
     );
@@ -60,7 +60,7 @@ export class StarterChoiceComponent implements OnInit {
   public onMapReady(map:google.maps.Map): void {
     this.map = map;
     this.mapReady = true;
-    //this.loadingScreenService.stopLoading();
+    this.loadingScreenService.stopLoading();
   }
 
   public initForm(): void {

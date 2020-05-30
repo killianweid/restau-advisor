@@ -7,10 +7,17 @@ import {Subject} from "rxjs";
 export class LoadingScreenService {
   private _loading: boolean = false;
   public loadingStatus:  Subject<boolean> = new Subject<boolean>();
+  private startTime = Date;
+  private endTime = Date;
+
 
 
   get loading():boolean {
     return this._loading;
+  }
+
+  public emitLoading(): void {
+    this.loadingStatus.next(this.loading);
   }
 
   set loading(value) {
@@ -19,10 +26,10 @@ export class LoadingScreenService {
   }
 
   public startLoading(): void {
-    this.loading = true;
+    this._loading = true;
   }
 
   public stopLoading(): void {
-    this.loading = false;
+    this._loading = false;
   }
 }

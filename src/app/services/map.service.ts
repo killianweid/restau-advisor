@@ -58,12 +58,13 @@ export class MapService {
     service.nearbySearch(request, (results, status, pageToken) => {
       // si la méthode renvoie des données
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        this.loadingScreenService.startLoading();
+        //this.loadingScreenService.startLoading();
         for (let i = 0; i < results.length; i++) {
           if (!(this.restaurantsService.containsRestaurant(results[i].place_id))) {
             this.addGooglePlacesRestaurantToList(results[i], service);
             if(i === results.length-1 && !pageToken.hasNextPage){
-              this.loadingScreenService.stopLoading();
+              //this.loadingScreenService.stopLoading();
+              //this.loadingScreenService.emitLoading();
             }
           }
         }
@@ -76,7 +77,8 @@ export class MapService {
                 if (!(this.restaurantsService.containsRestaurant(secondResults[j].place_id))) {
                   this.addGooglePlacesRestaurantToList(secondResults[j], service);
                   if(j === secondResults.length-1){
-                    this.loadingScreenService.stopLoading();
+                    //this.loadingScreenService.stopLoading();
+                    //this.loadingScreenService.emitLoading();
                   }
                 }
               }

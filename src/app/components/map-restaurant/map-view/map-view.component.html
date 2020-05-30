@@ -11,7 +11,8 @@
                         (creationRestauInPrgs)="newRestauClose()">
   </app-restaurant-form>
 </div>
-<app-loading-screen></app-loading-screen>
+<!-- <button class="btn btn-warning" (click)="onChargement()">Chargement</button> -->
+<app-loading-screen [loading]="loadingScreen"></app-loading-screen>
 <agm-map [latitude]="initialPositionLat"
          [longitude]="initialPositionLng"
          [zoom]="initialZoom"

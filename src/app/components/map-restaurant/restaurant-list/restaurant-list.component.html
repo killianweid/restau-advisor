@@ -1,7 +1,7 @@
 <div class="list-group">
   <h5 id="nb_restaurants" class="bg-success p-2 text-white rounded">0 restaurant actuellement visible sur la carte</h5>
-  <button *ngIf="!allRestaurantsVisibleOnMap && restaurants.length !== 0" class="btn btn-success" (click)="setRestaurantsVisible()">Voir tous les restaurants sur la map actuelle</button>
-  <button *ngIf="allRestaurantsVisibleOnMap  && restaurants.length !== 0" class="btn btn-danger" (click)="setRestaurantsVisible()">Masquer tous les restaurants sur la map actuelle</button>
+  <button *ngIf="!allRestaurantsVisibleOnMap && restaurants.length !== 0" class="btn btn-success" (click)="setRestaurantsVisible()"><fa-icon [icon]="iconVisible"></fa-icon> Voir tous les restaurants sur la map actuelle</button>
+  <button *ngIf="allRestaurantsVisibleOnMap  && restaurants.length !== 0" class="btn btn-danger" (click)="setRestaurantsVisible()"><fa-icon [icon]="iconHidden"></fa-icon> Masquer tous les restaurants sur la map actuelle</button>
   <div class="overflow-auto restaurants-list">
     <app-restaurant-item *ngFor="let restaurant of restaurants"
                          [restaurant]="restaurant">

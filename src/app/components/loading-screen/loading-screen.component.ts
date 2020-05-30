@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Subscription} from "rxjs";
 import {LoadingScreenService} from "../../services/loading-screen.service";
 
@@ -7,9 +7,9 @@ import {LoadingScreenService} from "../../services/loading-screen.service";
   templateUrl: './loading-screen.component.html',
   styleUrls: ['./loading-screen.component.scss']
 })
-export class LoadingScreenComponent implements OnInit, OnDestroy {
+export class LoadingScreenComponent implements OnInit, OnChanges, OnDestroy {
 
-  public loading: boolean = false;
+  @Input() public loading: boolean;
   private loadingSubscription: Subscription;
 
   constructor(private loadingScreenService: LoadingScreenService) { }
@@ -22,6 +22,10 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.loadingSubscription.unsubscribe();
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    console.log("OnChange : "+this.loading);
   }
 
 }
