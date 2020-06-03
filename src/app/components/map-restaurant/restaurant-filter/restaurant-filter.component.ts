@@ -33,7 +33,6 @@ export class RestaurantFilterComponent implements OnInit {
     const input1 = this.restauFilter.get('inferior_number');
     const input2 = this.restauFilter.get('superior_number');
     this.restaurantsService.filtrerRestaurants(input1.value, input2.value);
-      //TODO beug filtrage (restaurants json affichés dans la liste)
   }
 
 }

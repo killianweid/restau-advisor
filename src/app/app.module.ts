@@ -18,10 +18,11 @@ import { RestaurantFilterComponent } from './components/map-restaurant/restauran
 import { RestaurantNewRatingComponent } from './components/map-restaurant/restaurant-list/restaurant-item/restaurant-new-rating/restaurant-new-rating.component';
 import { RestaurantFormComponent } from './components/map-restaurant/restaurant-list/restaurant-form/restaurant-form.component';
 import { StarterChoiceComponent } from './components/starter-choice/starter-choice.component';
-import { AutoCompleteComponent } from './components/starter-choice/auto-complete/auto-complete.component';
+import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { InfosComponent } from './components/infos/infos.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
+import {LoadingScreenService} from "./services/loading-screen.service";
 
 const appRoutes: Routes = [
   { path: 'starter-position-choice', component: StarterChoiceComponent },
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
     FontAwesomeModule
   ],
   providers: [
-    RestaurantsService
+    RestaurantsService,
+    LoadingScreenService
   ],
   bootstrap: [AppComponent]
 })

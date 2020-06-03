@@ -5,6 +5,7 @@ import {Rating} from "../models/rating.model";
 import $ from "jquery";
 import {findIndexOfRestaurantByGooglePlaceId, findRestaurantById, showTextNbRestaurants, strRandom} from '../utils';
 import {LoadingScreenService} from "./loading-screen.service";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +13,43 @@ import {LoadingScreenService} from "./loading-screen.service";
 export class MapService {
   private map: google.maps.Map;
   public referencePosition: google.maps.LatLng = null;
+  public referencePositionSubject = new Subject<google.maps.LatLng>();
+
   private restaurants: Restaurant[];
 
   constructor(private restaurantsService: RestaurantsService,
               private loadingScreenService: LoadingScreenService) {
   }
 
+  public emitReferencePosition(): void {
+    this.referencePositionSubject.next(this.referencePosition);
+  }
+
+  public setNewReferencePosition(newReferencePosition: google.maps.LatLng): void {
+    this.referencePosition = newReferencePosition;
+    this.emitReferencePosition();
+  }
+
   public initMapAndGooglePlacesRestaurants(map: google.maps.Map, restaurants: Restaurant[]): void {
-    this.map = map;
-    this.restaurants = restaurants;
-    google.maps.event.addListener(this.map, 'idle', () => {
-      this.removeRestaurantsNotVisible();
-      this.collectGooglePlacesRestaurants(this.showVisibleRestaurants);
-    });
+    if(this.map === undefined) {
+      this.map = map;
+      this.restaurants = restaurants;
+      google.maps.event.addListener(this.map, 'idle', () => {
+        this.removeRestaurantsNotVisible();
+        this.collectGooglePlacesRestaurants(this.showVisibleRestaurants);
+      });
+    }else{
+      google.maps.event.clearInstanceListeners(this.map);
+      this.map = map;
+      google.maps.event.addListener(this.map, 'idle', () => {
+        this.removeRestaurantsNotVisible();
+        this.collectGooglePlacesRestaurants(this.showVisibleRestaurants);
+      });
+    }
+  }
+
+  public changeCenter(newCenter: google.maps.LatLng): void {
+    this.map.setCenter(newCenter);
   }
 
   public removeRestaurantsNotVisible(): void {
@@ -58,15 +83,20 @@ export class MapService {
     service.nearbySearch(request, (results, status, pageToken) => {
       // si la méthode renvoie des données
       if (status == google.maps.places.PlacesServiceStatus.OK) {
+        //console.log("Juste avant le start pour les places");
         //this.loadingScreenService.startLoading();
         for (let i = 0; i < results.length; i++) {
           if (!(this.restaurantsService.containsRestaurant(results[i].place_id))) {
             this.addGooglePlacesRestaurantToList(results[i], service);
             if(i === results.length-1 && !pageToken.hasNextPage){
-              //this.loadingScreenService.stopLoading();
+
               //this.loadingScreenService.emitLoading();
             }
           }
+        }
+        if(!pageToken.hasNextPage){
+          //console.log("Juste avant le stop");
+          //this.loadingScreenService.stopLoading();
         }
         /* s'il y a une autre page de resultats (soit plus de 20 resultats) */
         if (pageToken.hasNextPage) {
@@ -76,17 +106,15 @@ export class MapService {
               for (let j = 0; j < secondResults.length; j++) {
                 if (!(this.restaurantsService.containsRestaurant(secondResults[j].place_id))) {
                   this.addGooglePlacesRestaurantToList(secondResults[j], service);
-                  if(j === secondResults.length-1){
-                    //this.loadingScreenService.stopLoading();
-                    //this.loadingScreenService.emitLoading();
-                  }
                 }
               }
+              //this.loadingScreenService.stopLoading();
+              //TODO regler probleme avec ce stop qui ne fonctionne pas
             }
           })
         }
       }
-      callback(this.restaurants, this.map.getBounds());
+      callback(this.restaurants);
     });
   }
 
@@ -141,10 +169,7 @@ export class MapService {
       this.restaurantsService.addNewRestaurant(newRestau);
     });
   }
-
-  //TODO supprimer cette methode apres la soutenance (cette methode sert seulement à cacher les restaurants du fichier JSON dans la liste lorsqu'ils ne sont pas visible)
-  // garder juste le showTextNbRestaurants
-  public showVisibleRestaurants(restaurants: Restaurant[], bounds: google.maps.LatLngBounds): void {
+  public showVisibleRestaurants(restaurants: Restaurant[]): void {
     showTextNbRestaurants((restaurants.length));
   }
 }

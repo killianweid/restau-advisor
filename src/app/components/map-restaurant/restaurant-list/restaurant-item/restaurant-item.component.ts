@@ -1,6 +1,6 @@
 import {Component, Input } from '@angular/core';
 import {Restaurant} from "../../../../models/restaurant.model";
-import {faArrowDown, faEye, faEyeSlash, faPlus, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
+import {faArrowDown, faArrowUp, faEye, faEyeSlash, faPlus, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import {RestaurantsService} from "../../../../services/restaurants.service";
 
@@ -18,6 +18,7 @@ export class RestaurantItemComponent   {
   public faStar = faStar;
   public iconAdd = faPlus;
   public iconFlecheBas = faArrowDown;
+  public iconFlecheHaut = faArrowUp;
   public iconShow = faEye;
   public iconHide = faEyeSlash;
 
@@ -25,11 +26,12 @@ export class RestaurantItemComponent   {
   }
 
   public onClickRestaurant(): void {
-    //TODO afficher également la google street view si elle est deja affiché pour un autre restaurant
     this.ratingsAreShown = !this.ratingsAreShown;
     this.restaurant.isSelected = !this.restaurant.isSelected;
     if(this.restaurantsService.lastRestaurantSelectedId !== null){
-      this.restaurantsService.unselectRestaurant(this.restaurantsService.lastRestaurantSelectedId);
+      if(this.restaurantsService.lastRestaurantSelectedId !== this.restaurant.id){
+        this.restaurantsService.unselectRestaurant(this.restaurantsService.lastRestaurantSelectedId);
+      }
     }
     this.restaurantsService.lastRestaurantSelectedId = this.restaurant.id;
   }

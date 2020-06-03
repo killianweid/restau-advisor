@@ -9,17 +9,18 @@ import {MapService} from "../../../services/map.service";
 import {Router} from "@angular/router";
 import {LoadingScreenService} from "../../../services/loading-screen.service";
 import {Subject, Subscription} from "rxjs";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {faCrosshairs} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-map-view',
   templateUrl: './map-view.component.html',
   styleUrls: ['./map-view.component.scss']
 })
-export class MapViewComponent implements OnInit {
-  //TODO afficher un input pour l'adresse au dessus de la map pour changer la position de reference
+export class MapViewComponent implements OnInit, OnDestroy {
 
-  public initialPositionLat: number;
-  public initialPositionLng: number;
+  public referencePosition: google.maps.LatLng;
+  private referencePositionSubscription: Subscription;
 
   // google maps zoom level
   public initialZoom: number = 18;
@@ -41,16 +42,25 @@ export class MapViewComponent implements OnInit {
 
   public streetViewShowed: boolean = false;
 
+  public adressSearch: FormGroup;
+  public iconPosition= faCrosshairs;
+
   constructor(private restaurantsService: RestaurantsService,
               private mapService: MapService,
               private router: Router,
-              private loadingScreenService: LoadingScreenService) { }
+              private loadingScreenService: LoadingScreenService,
+              private formBuilder: FormBuilder) { }
 
   public ngOnInit(): void {
-    /*this.loadingScreenSubscription = this.loadingScreenService.loadingStatus.subscribe(
+    this.loadingScreenSubscription = this.loadingScreenService.loadingSubject.subscribe(
       (loadingScreen: boolean) => this.loadingScreen = loadingScreen
     );
-    this.loadingScreenService.emitLoading();*/
+    this.loadingScreenService.emitLoading();
+    this.referencePositionSubscription = this.mapService.referencePositionSubject.subscribe(
+      (referencePosition: google.maps.LatLng) => this.referencePosition = referencePosition
+    );
+    this.mapService.emitReferencePosition();
+    this.initForm();
     if(this.mapService.referencePosition === null) {
       this.router.navigate(['starter-position-choice']);
     }else{
@@ -59,8 +69,7 @@ export class MapViewComponent implements OnInit {
         "height":"60%"
       });
       //this.loadingScreenService.startLoading();
-      this.initialPositionLat = this.mapService.referencePosition.lat();
-      this.initialPositionLng = this.mapService.referencePosition.lng();
+      this.referencePosition = this.mapService.referencePosition;
     }
   }
 
@@ -115,7 +124,6 @@ export class MapViewComponent implements OnInit {
     this.streetViewShowed = false;
     this.restaurantsService.unselectRestaurant(this.restaurantsService.lastRestaurantSelectedId);
     this.restaurants.map(restaurantListe => restaurantListe.isSelected = false);
-    //TODO changer cette méthode bourrin
   }
 
 
@@ -156,6 +164,12 @@ export class MapViewComponent implements OnInit {
     this.markers.pop();
   }
 
+  public initForm(): void {
+    this.adressSearch = this.formBuilder.group({
+      adresse: ['', Validators.requiredTrue],
+    });
+  }
+
   /*public onChargement(): void {
     if(this.loadingScreen){
       this.loadingScreenService.stopLoading();
@@ -165,8 +179,10 @@ export class MapViewComponent implements OnInit {
 
   }*/
 
-  /*public ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.loadingScreenSubscription.unsubscribe();
-  }*/
+    this.referencePositionSubscription.unsubscribe();
+  }
+
 
 }

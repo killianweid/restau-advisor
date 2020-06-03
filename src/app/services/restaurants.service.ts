@@ -93,4 +93,10 @@ export class RestaurantsService {
     });
   }
 
+  public clearRestaurants(): void {
+    this.restaurants = [];
+    this.restaurants.length = 0;
+    this.emitRestaurants();
+  }
+
 }

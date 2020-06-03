@@ -1,4 +1,4 @@
-<div class="bg-info text-white rounded text-center font-weight-bold w-50 p-2 m-auto">
+<div id="block_title_reference" class="bg-info text-white rounded text-center font-weight-bold p-2 m-auto">
   <h3 class="mb-0"> Choisissez votre position de référence <fa-icon [icon]="iconPosition"></fa-icon></h3>
 </div>
 
@@ -10,6 +10,7 @@
              [longitude]="actualPositionLng"
              [zoom]="initialZoom"
              (mapReady)="onMapReady($event)"
+             (tilesLoaded)="onMapVisible()"
     >
       <agm-marker [latitude]="actualPositionLat" [longitude]="actualPositionLng" iconUrl="../../assets/images/favicon.ico" [label]="{color:'blue',text:'Votre position',fontWeight:'bold'}" >
       </agm-marker>
@@ -34,7 +35,7 @@
   <div class="list-group-item bg-info text-white">
     <fa-icon [icon]="iconPosition" size="2x"></fa-icon>
     <span class="text-uppercase font-weight-bold"> Choisir votre position de référence</span>
-    <p class="aide_fonctionnalite" class="font-italic mr-auto ml-auto"> Vous avez le choix entre votre position géographique actuelle ou une adresse de votre choix. <br>
+    <p class="aide_fonctionnalite font-italic mr-auto ml-auto"> Vous avez le choix entre votre position géographique actuelle ou une adresse de votre choix. <br>
       Si vous choisissez votre position géographique actuelle veuillez cliquer sur le bouton <span class="btn btn-success">OK</span> qui est situé en dessous de la map.
       <br>
       Si vous choisissez une adresse de votre choix veuillez écrire l'adresse dans le champ prévu à cet effet et nous vous proposerons sous forme de liste des adresses correspondantes répertoriées par Google Maps. Il suffira de cliquer sur l'adresse désiré.

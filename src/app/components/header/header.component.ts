@@ -20,7 +20,6 @@ export class HeaderComponent {
     }
   }
 
-  //TODO possible aussi de faire avec un [ngClass] dans la nav
   public onClickNavMobile(): void {
     if(this.navbarToggler.nativeElement.classList.contains("show")){
       this.navbarToggler.nativeElement.classList.remove("show");

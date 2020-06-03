@@ -12,15 +12,15 @@
   </app-restaurant-form>
 </div>
 <!-- <button class="btn btn-warning" (click)="onChargement()">Chargement</button> -->
-<app-loading-screen [loading]="loadingScreen"></app-loading-screen>
-<agm-map [latitude]="initialPositionLat"
-         [longitude]="initialPositionLng"
+<app-loading-screen></app-loading-screen>
+<agm-map [latitude]="referencePosition.lat()"
+         [longitude]="referencePosition.lng()"
          [zoom]="initialZoom"
          (mapReady)="onMapReady($event);"
          (mapClick)="closeWindow()"
          (mapRightClick)="showOptions($event)">
-  <agm-marker [latitude]="initialPositionLat"
-              [longitude]="initialPositionLng"
+  <agm-marker [latitude]="referencePosition.lat()"
+              [longitude]="referencePosition.lng()"
               iconUrl="../../assets/images/favicon.ico"
               [label]="{color:'blue',text:'Votre position',fontWeight:'bold'}" >
   </agm-marker>
@@ -42,6 +42,15 @@
     [label]="m.label"
   </agm-marker>
 </agm-map>
+<div class="row bg-info">
+  <form id="form_auto_complete_map" class="form-inline p-2 justify-content-center" [formGroup]="adressSearch">
+    <h4 class="bg-info rounded font-weight-bold">
+      <fa-icon [icon]="iconPosition"></fa-icon>
+      Changer la position de référence :
+    </h4>
+    <app-auto-complete></app-auto-complete>
+  </form>
+</div>
 <div #pano id="pano" *ngIf="streetViewShowed" class="h-50">
   <div id="btn_close_street_view" #btnCloseStreetView class="btn btn-lg btn-danger" (click)="onClickCloseStreetView()">×</div>
 </div>

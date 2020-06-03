@@ -33,6 +33,8 @@ export class StarterChoiceComponent implements OnInit {
   public helpIsShowed: boolean;
   private helpIsShowedSubscription: Subscription;
 
+  public loadingScreen: boolean=false;
+
   constructor(private formBuilder: FormBuilder,
               private mapService: MapService,
               private router: Router,
@@ -60,7 +62,6 @@ export class StarterChoiceComponent implements OnInit {
   public onMapReady(map:google.maps.Map): void {
     this.map = map;
     this.mapReady = true;
-    this.loadingScreenService.stopLoading();
   }
 
   public initForm(): void {
@@ -70,12 +71,16 @@ export class StarterChoiceComponent implements OnInit {
   }
 
   public onClickPosition():void {
-    this.mapService.referencePosition = new google.maps.LatLng(this.actualPositionLat,this.actualPositionLng);
+    this.mapService.setNewReferencePosition(new google.maps.LatLng(this.actualPositionLat,this.actualPositionLng));
     this.router.navigate(['carte-et-restaurants']);
   }
 
   public onCloseHelp(): void{
     this.helpService.changeHelpStarter();
+  }
+
+  public onMapVisible(): void {
+   this.loadingScreenService.stopLoading();
   }
 
 }

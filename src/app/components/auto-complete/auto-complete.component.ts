@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
-import {MapService} from "../../../services/map.service";
+import {MapService} from "../../services/map.service";
+import {RestaurantsService} from "../../services/restaurants.service";
 
 @Component({
   selector: 'app-auto-complete',
@@ -16,7 +17,8 @@ export class AutoCompleteComponent {
   public autocompleteInput: string;
 
   constructor( private mapService: MapService,
-               private router: Router) {
+               private router: Router,
+               private restaurantsService: RestaurantsService) {
   }
 
   public ngAfterViewInit():void {
@@ -32,8 +34,14 @@ export class AutoCompleteComponent {
     google.maps.event.addListener(autocomplete, 'place_changed', () => {
       const place = autocomplete.getPlace();
       this.invokeEvent(place);
-      this.mapService.referencePosition = place.geometry.location;
-      this.router.navigate(['carte-et-restaurants']);
+      this.mapService.setNewReferencePosition(place.geometry.location);
+      if(window.location.pathname === "/starter-position-choice"){
+        this.router.navigate(['carte-et-restaurants']);
+      }else{
+        //this.mapService.initMapAndGooglePlacesRestaurants(this.map, this.restaurants);
+        this.restaurantsService.clearRestaurants();
+        this.mapService.changeCenter(new google.maps.LatLng(place.geometry.location.lat(),place.geometry.location.lng()));
+      }
     });
   }
 
