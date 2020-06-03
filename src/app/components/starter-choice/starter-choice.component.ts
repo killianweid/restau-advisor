@@ -48,6 +48,9 @@ export class StarterChoiceComponent implements OnInit {
     );
     this.helpService.emitHelpStarter();
     this.initForm();
+    if(( window.innerWidth <= 800 ) && ( window.innerHeight <= 600 )) {
+      alert("Pour que l'on puisse vous géolocaliser veuillez activer le GPS dans les réglages de votre appareil puis rafraîchissez la page.")
+    }
     if ("geolocation" in navigator) {
       /* la géolocalisation est disponible */
       navigator.geolocation.getCurrentPosition((position) => {
